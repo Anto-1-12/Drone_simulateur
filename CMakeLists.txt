@@ -10,6 +10,7 @@ set(SFML_DIR "${PROJECT_SOURCE_DIR}/SFML")
 include_directories(${SFML_DIR}/include)
 link_directories(${SFML_DIR}/lib)
 
+#compiller les hpp
 include_directories(
     PRIVATE_HEADER 
     ${PROJECT_SOURCE_DIR}/Engine/include
@@ -17,6 +18,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/src/scenes
     )
 
+#compiller les fichiers cpp
 file(
     GLOB_RECURSE SOURCES CONFIGURE_DEPENDS 
     ${PROJECT_SOURCE_DIR}/Engine/*.cpp
@@ -25,6 +27,7 @@ file(
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+#link la sfml
 target_link_libraries(${PROJECT_NAME} PRIVATE
     sfml-graphics
     sfml-window
