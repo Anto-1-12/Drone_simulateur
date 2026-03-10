@@ -9,12 +9,13 @@ Level1::Level1():
     //coo du drone
     coo(0,-100,0),
     rotation(0,0,0),
-    vitesse(60)
+    vitesse(60),
+    relativeCooCam(0,-20,10)
     
     //test
 {
     //le model du drone sera tjr le premier model
-    map_obj.push_back(Model3D(coo,"assets/models/drone.obj",1));
+    map_obj.push_back(Model3D(coo,"assets/models/block.obj",1));
     map_obj.push_back(Model3D(sf::Vector3f(0,0,0),"assets/models/tourEiffel.obj",100));
 
 }
@@ -26,6 +27,7 @@ Level1::~Level1()
 
 void Level1::draw(sf::RenderWindow& window)
 {
+
     for (int i = 0; i < map_obj.size() ; i++)
     {
         std::vector<sf::Vector3f> vertexs = map_obj[i].getVertexs();
@@ -34,7 +36,7 @@ void Level1::draw(sf::RenderWindow& window)
 
         for (int a = 0; a < vertexs.size() ; a++)
         {
-            sf::Vector3f xyz = turn_point(coo+sf::Vector3f(-10,0,10),vertexs[a],rotation);
+            sf::Vector3f xyz = turn_point(coo,vertexs[a],rotation);
 
             //verifier si l'objet est devan ou deriere pour ne pas le projetter dans le cas contraire
             if(xyz.y > 0)
@@ -54,7 +56,7 @@ void Level1::draw(sf::RenderWindow& window)
         for ( int b = 0; b < faces.size(); b++)
         {
             sf::Vector3f vn = vns[b];
-            sf::Vector3f vd = vn - coo+sf::Vector3f(0,0,10);
+            sf::Vector3f vd = vn - coo;
 
             float dot_prod = vn.x*vd.x + vn.y*vd.y + vn.z*vd.z;
 
@@ -178,7 +180,7 @@ void Level1::update(float dt)
         rotation.y += (vitesse*2)/40 * dt;
     }
 
-    map_obj[0].turn_model(rotation,coo);
+    map_obj[0].turn_model(-rotation,coo-rotate_model(relativeCooCam,rotation));
 
 }
 

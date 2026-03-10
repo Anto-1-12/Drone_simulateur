@@ -20,6 +20,8 @@ class Level1 : public Scene
         sf::Vector3f rotation;
         float vitesse;
 
+        sf::Vector3f relativeCooCam;
+
     public:
         Level1();
         ~Level1();
