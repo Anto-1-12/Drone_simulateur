@@ -5,6 +5,70 @@ Model3D::Model3D(sf::Vector3f n_coo,std::string geo,float coeff_size):
     file(geo),
     size(coeff_size)
 {
+    this->open_model();
+}
+
+std::vector<sf::Vector3f> Model3D::getVertexs()
+{
+    return points;
+}
+
+std::vector<std::vector<int>> Model3D::getFaces()
+{
+    return faces;
+}
+
+std::vector<sf::Vector3f> Model3D::getVectorNormal()
+{
+    return vn_by_face;
+}
+
+sf::Vector3f Model3D::getCoo()
+{
+    return coo;
+}
+
+void Model3D::turn_model(sf::Vector3f rotation, sf::Vector3f n_coo)
+{
+    coo = n_coo;
+
+    std::vector<sf::Vector3f> n_points;
+    for (int i = 0; i < v.size(); i++)
+    {
+        n_points.push_back((rotate_model(v[i],rotation)*size)+coo);
+    }
+    points = n_points;
+
+    std::vector<sf::Vector3f> n_vn;
+    for (int i = 0; i < vn.size(); i++)
+    {
+        sf::Vector3f n = rotate_model(vn[i], rotation);
+
+        float len = std::sqrt(n.x*n.x + n.y*n.y + n.z*n.z)+0.0001;
+        n = n / len;
+
+        n_vn.push_back(n);
+    }
+    vn_by_face = n_vn;
+}
+
+void Model3D::tp(sf::Vector3f n_coo)
+{
+
+    coo = n_coo;
+
+    std::vector<sf::Vector3f> vertex_in_space;
+
+    for (int i = 0; i < v.size(); i++)
+    {
+        vertex_in_space.push_back((v[i]*size)+coo);
+    }
+
+    points = vertex_in_space;
+}
+
+void Model3D::open_model()
+{
     std::ifstream goe_file(file);
 
     std::string line;
@@ -97,47 +161,4 @@ Model3D::Model3D(sf::Vector3f n_coo,std::string geo,float coeff_size):
     points = vertex_in_space;
 
     vn = vn_by_face;
-
-}
-
-std::vector<sf::Vector3f> Model3D::getVertexs()
-{
-    return points;
-}
-
-std::vector<std::vector<int>> Model3D::getFaces()
-{
-    return faces;
-}
-
-std::vector<sf::Vector3f> Model3D::getVectorNormal()
-{
-    return vn_by_face;
-}
-
-sf::Vector3f Model3D::getCoo()
-{
-    return coo;
-}
-
-void Model3D::turn_model(sf::Vector3f rotation)
-{
-    std::vector<sf::Vector3f> n_points;
-    for (int i = 0; i < v.size(); i++)
-    {
-        n_points.push_back((rotate_model(v[i],rotation)*size)+coo);
-    }
-    points = n_points;
-
-    std::vector<sf::Vector3f> n_vn;
-    for (int i = 0; i < vn.size(); i++)
-    {
-        sf::Vector3f n = rotate_model(vn[i], rotation);
-
-        float len = std::sqrt(n.x*n.x + n.y*n.y + n.z*n.z)+0.0001;
-        n = n / len;
-
-        n_vn.push_back(n);
-    }
-    vn_by_face = n_vn;
 }

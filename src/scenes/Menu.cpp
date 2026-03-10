@@ -49,7 +49,7 @@ void Menu::update(float dt)
 {
     if(play_button.buttonIsClicked())
     {
-        scneneToChange = "Menu";
+        scneneToChange = "Level1";
         wantToChange = true;
     }
 }
