@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "SceneManager.hpp"
 #include "SceneType.hpp"
+#include "Menu.hpp"
 
 class Game
 {

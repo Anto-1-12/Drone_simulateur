@@ -10,11 +10,12 @@ Menu::Menu():
 {
     sf::Vector2f size = sf::Vector2f(bg.getSize().x,bg.getSize().y);
     backGround.setScale({1600/size.x,900/size.y});
+    
 }
 
 Menu::~Menu()
 {
-    
+
 }
 
 void Menu::draw(sf::RenderWindow& window)
