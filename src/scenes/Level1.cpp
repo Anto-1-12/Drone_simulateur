@@ -10,13 +10,13 @@ Level1::Level1():
     coo(0,-100,0),
     rotation(0,0,0),
     vitesse(60),
-    relativeCooCam(0,-20,10)
+    relativeCooCam(0,-20,-10)
     
     //test
 {
     //le model du drone sera tjr le premier model
-    map_obj.push_back(Model3D(coo,"assets/models/block.obj",1));
-    map_obj.push_back(Model3D(sf::Vector3f(0,0,0),"assets/models/tourEiffel.obj",100));
+    map_obj.push_back(Model3D(coo,"assets/models/drone.obj",1));
+    map_obj.push_back(Model3D(sf::Vector3f(0,0,0),"assets/models/block_a_la_main.obj",10));
 
 }
 
@@ -28,6 +28,13 @@ Level1::~Level1()
 void Level1::draw(sf::RenderWindow& window)
 {
 
+    sf::Vector3f Vec = rotate_model(relativeCooCam,sf::Vector3f(rotation.x,0,0));
+    sf::Vector3f CamPos = coo - Vec;
+
+    float yawn = atan2(Vec.x,Vec.y);
+
+    sf::Vector3f CamRotation = sf::Vector3f(yawn,rotation.y,rotation.z);
+
     for (int i = 0; i < map_obj.size() ; i++)
     {
         std::vector<sf::Vector3f> vertexs = map_obj[i].getVertexs();
@@ -36,7 +43,7 @@ void Level1::draw(sf::RenderWindow& window)
 
         for (int a = 0; a < vertexs.size() ; a++)
         {
-            sf::Vector3f xyz = turn_point(coo,vertexs[a],rotation);
+            sf::Vector3f xyz = turn_point(CamPos,vertexs[a],CamRotation);
 
             //verifier si l'objet est devan ou deriere pour ne pas le projetter dans le cas contraire
             if(xyz.y > 0)
@@ -56,7 +63,7 @@ void Level1::draw(sf::RenderWindow& window)
         for ( int b = 0; b < faces.size(); b++)
         {
             sf::Vector3f vn = vns[b];
-            sf::Vector3f vd = vn - coo;
+            sf::Vector3f vd = vn - CamPos;
 
             float dot_prod = vn.x*vd.x + vn.y*vd.y + vn.z*vd.z;
 
@@ -113,11 +120,18 @@ void Level1::event(const sf::Event& event)
 
 void Level1::update(float dt)
 {
-    float forwardX = std::sin(rotation.x);
-    float forwardY = std::cos(rotation.x);
 
-    float rightX = std::cos(rotation.x);
-    float rightY = -std::sin(rotation.x);
+    sf::Vector3f Vec = rotate_model(relativeCooCam,sf::Vector3f(rotation.x,0,0));
+
+    float yawn = atan2(Vec.x,Vec.y);
+
+    sf::Vector3f CamRotation = sf::Vector3f(yawn,rotation.y,rotation.z);
+
+    float forwardX = std::sin(CamRotation.x);
+    float forwardY = std::cos(CamRotation.x);
+
+    float rightX = std::cos(CamRotation.x);
+    float rightY = -std::sin(CamRotation.x);
 
     if(menu_button.buttonIsClicked())
     {
@@ -164,11 +178,11 @@ void Level1::update(float dt)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
     {
-        rotation.x -= (vitesse*2)/40 * dt;
+        rotation.x += (vitesse*2)/40 * dt;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
     {
-        rotation.x += (vitesse*2)/40 * dt;
+        rotation.x -= (vitesse*2)/40 * dt;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
@@ -180,7 +194,7 @@ void Level1::update(float dt)
         rotation.y += (vitesse*2)/40 * dt;
     }
 
-    map_obj[0].turn_model(-rotation,coo-rotate_model(relativeCooCam,rotation));
+    map_obj[0].turn_model(sf::Vector3f(rotation.x,0,0),coo);
 
 }
 
