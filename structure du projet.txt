@@ -1,0 +1,8 @@
+l'arbre de base:
+
+|- /cpp
+|- /python
+|- /CMakeLists.txt
+
+le CMakeLists est un fichier qui explique comment le projet cpp doit etre compiler, je l'ai mis a la racine pour simplifier la copie des fichier python das les dossier du build du projet cpp
+
