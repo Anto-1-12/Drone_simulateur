@@ -10,5 +10,6 @@ class OpenGLRenderer : public Render
          OpenGLRenderer();
          ~OpenGLRenderer();
          void Init() override{};
+         void Update() override{};
          void Clear() override{};
 };
