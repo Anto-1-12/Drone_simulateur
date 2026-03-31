@@ -1,0 +1,3 @@
+l'idé c'est qu'il n'y aura pas de ressource dans le python pour que edupython puisse bien ouvrir et lancer le project
+donc pas d'utilisation de texture, de model etc dans le python.
+faut voir si on fait un .venv pour avoir les libs directement dans le projet
