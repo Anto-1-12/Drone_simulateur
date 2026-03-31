@@ -1,8 +1,14 @@
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "render.hpp"
 
 class OpenGLRenderer : public Render
 {
-    void Init() override{};
-    void Clear() override{};
+    private:
+         GLFWwindow* window;
+    public:
+         OpenGLRenderer();
+         ~OpenGLRenderer();
+         void Init() override{};
+         void Clear() override{};
 };
