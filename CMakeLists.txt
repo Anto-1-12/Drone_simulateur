@@ -12,22 +12,22 @@ link_directories(${SFML_DIR}/lib)
 
 include_directories(
     PRIVATE_HEADER 
-    ${PROJECT_SOURCE_DIR}/cpp
+    ${PROJECT_SOURCE_DIR}/cpp/src
+    ${PROJECT_SOURCE_DIR}/cpp/include
     )
 
 file(
     GLOB_RECURSE SOURCES CONFIGURE_DEPENDS 
     ${PROJECT_SOURCE_DIR}/cpp/*.cpp
+    ${PROJECT_SOURCE_DIR}/cpp/lib/glad.c
     )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-# GLFW
-find_package(glfw3 REQUIRED)
+# chemin vers tes libs
+target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/cpp/lib)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    glfw OpenGL::GL
-)
+target_link_libraries(${PROJECT_NAME} glfw3 opengl32 gdi32)
 
 # ---- Copie les assets dans le dossier de build ----
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
