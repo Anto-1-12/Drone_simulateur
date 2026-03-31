@@ -1,21 +1,24 @@
 #include "OpenGl_Render.hpp"
 
-OpenGLRenderer::OpenGLRenderer()
+OpenGLRenderer::OpenGLRenderer(int width,int height): 
+    Render(),
+    size_screen(glm::ivec2(width,height))
 {
-Init();
-window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
+    Init();
 }
 
-OpenGLRenderer::OpenGLRenderer()
+OpenGLRenderer::~OpenGLRenderer()
 {
-glfwTerminate();
+    glfwDestroyWindow(window);
+    glfwTerminate();
 }
 
 void OpenGLRenderer::Init()
 {
     glfwInit();
+    window = glfwCreateWindow(size_screen.x, size_screen.y, "OpenGL", NULL, NULL);
     glfwMakeContextCurrent(window);
-     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -29,4 +32,14 @@ void OpenGLRenderer::Update()
 void OpenGLRenderer::Clear()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+bool OpenGLRenderer::IsOpen()
+{
+    return !glfwWindowShouldClose(window);
+}
+
+void OpenGLRenderer::Events()
+{
+    glfwPollEvents();
 }

@@ -14,6 +14,10 @@ include_directories(
     PRIVATE_HEADER 
     ${PROJECT_SOURCE_DIR}/cpp/src
     ${PROJECT_SOURCE_DIR}/cpp/include
+    ${PROJECT_SOURCE_DIR}/cpp/src/utiles
+    ${PROJECT_SOURCE_DIR}/cpp/src/scenes
+    ${PROJECT_SOURCE_DIR}/cpp/src/game
+    ${PROJECT_SOURCE_DIR}/cpp/src/abstraction
     )
 
 file(

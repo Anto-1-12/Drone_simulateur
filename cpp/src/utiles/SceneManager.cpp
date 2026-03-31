@@ -32,19 +32,19 @@ void SceneManager::changeScene(Scene* newScene)
 }
 
 //dessin de la scene
-void SceneManager::draw(sf::RenderWindow& window)
+void SceneManager::draw(Render& window)
 {
     scene->draw(window);
 }
 
 //event de la scene
-void SceneManager::event(const sf::Event& event)
+void SceneManager::event()
 {
-    scene->event(event);
+    scene->event();
 }
 
 //update de la scene + detection de changement de scene
-void SceneManager::update( float dt)
+void SceneManager::update(float dt)
 {
     scene->update(dt);
     

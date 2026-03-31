@@ -17,9 +17,9 @@ class SceneManager{
         SceneManager(Scene* scene, SceneType* scene_type_init);
         ~SceneManager();
         void changeScene(Scene* newScene);
-        void event(const sf::Event& event);
+        void event();
         void update(float dt);
-        void draw(sf::RenderWindow& window);
+        void draw(Render& window);
 };
 
 #endif
