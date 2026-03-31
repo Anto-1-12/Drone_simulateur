@@ -1,7 +1,15 @@
 #include "OpenGl_Render.hpp"
 
+OpenGLRenderer::OpenGLRenderer()
+{
+window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
+}
+
 void OpenGLRenderer::Init()
 {
+    glfwInit();
+    glfwMakeContextCurrent(window);
+     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glEnable(GL_DEPTH_TEST);
 }
 
