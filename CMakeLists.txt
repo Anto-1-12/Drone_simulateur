@@ -22,8 +22,11 @@ file(
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
+# GLFW
+find_package(glfw3 REQUIRED)
 
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    glfw OpenGL::GL
 )
 
 # ---- Copie les assets dans le dossier de build ----
