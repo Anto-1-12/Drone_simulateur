@@ -18,6 +18,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/cpp/src/scenes
     ${PROJECT_SOURCE_DIR}/cpp/src/game
     ${PROJECT_SOURCE_DIR}/cpp/src/abstraction
+    ${PROJECT_SOURCE_DIR}/cpp/src/abstraction/OpenGL
     )
 
 file(
