@@ -24,16 +24,7 @@ void OpenGLRenderer::InitWindow()
 
 void OpenGLRenderer::Init()
 {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
 
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
 }
 
 void OpenGLRenderer::Update()
@@ -60,4 +51,51 @@ bool OpenGLRenderer::IsOpen()
 void OpenGLRenderer::Events()
 {
     glfwPollEvents();
+}
+
+void OpenGLRenderer::AddMesh()
+{
+    Mesh mesh;
+
+    mesh.name = "triangle";
+
+    float vertices[] = {
+        // positions
+         0.0f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f
+    };
+
+    mesh.vertexCount = 3;
+
+    glGenVertexArrays(1, &mesh.VAO);
+    glGenBuffers(1, &mesh.VBO);
+
+    glBindVertexArray(mesh.VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, mesh.VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+
+    all_mesh.push_back(mesh);
+}
+
+void OpenGLRenderer::AddObject()
+{   
+    std::string name_mesh = "triangle";
+
+    Mesh mesh;
+    for (int i = 0; i < all_mesh.size(); i++)
+    {
+        if (all_mesh[i].name == name_mesh)
+        {
+            mesh = all_mesh[i];
+        }
+    }
+
+    all_object.push_back(Object{&mesh,glm::mat4()});
 }
