@@ -1,0 +1,52 @@
+Lucas-Tao Goui
+Gaspard Chipard
+Evan De La Tullaye
+
+Sujet : 
+CAHIER DES CHARGES :
+Sujet libre mais devant se différencier nettement de celui du 2ème trimestre.
+Thèmes recommandés : IA, cybersécurité, big data, robotique, objets connectés.
+Chaque membre du groupe devra avoir travaillé sur les principales parties du projet.
+Un mode d'emploi de l'application devra être fourni. Chaque groupe devra montrer qu'il a réalisé une partie du projet à l'aide de l'IA.
+
+CALENDRIER :
+mardi 31 mars: descriptif (1 pt)
+jeudi 9 avril: point intermédiaire sur l'avancement du projet (2 pts)
+19-28 mai: présentations
+
+BAREME :
+Note collective:
+	avancement intermédiaire: 3 pts
+	réalisation des objectifs: 4 pts
+Note individuelle:
+	travail fourni (quantité de code fourni, inventivité, rigueur,...): 6 pts
+	capacité à expliquer le code et connaissance du travail du(des) collègue(s): 4 pts
+	qualité du code: 3 pts (dans la mesure du travail fourni)
+
+PROJETS POSSIBLES :
+- utiliser l'algorithme d'IA des kPPV pour reconnaître des caractères manuscrits ou des objets
+- simuler le déplacement d'un drone
+...
+
+
+
+
+Projet : Simulateur de drone
+Langages de programmation: Python,C++
+
+
+Cahier des charges:
+Le projet est une application de simulation de vol de drone en 3D à la première personne.
+La fenêtre d'affichage (dit côté client) sera geré par un programme en C++,
+tandis que la logique (dit côté serveur) sera geré par un/des programmes en Python,
+un défi technique sera de faire communiquer le programme en C++ et en Python,
+le côté graphique sera sommaire, aucune textures seulement une couleur grise qui est hérité du modèle 3D
+pour faciliter la navigation, une gestion de la lumière grâce à OPENGL permettra de créer des ombres et donc de différencier
+sol, murs et obstacles.
+Une course d'obstacles sera créée pour naviguer avec le drone.
+Le drone pourra être piloté ou programmé depuis un autre fichier qui sera lu par le python.
+Le python régit la position de chaque élément ainsi que la gravité de même que les mouvements du drone,
+le C++ fourni l'affichage des dits éléments et la lumière globale.
+
+Utilisation de l'IA : 
+Inconnue pour le moment
