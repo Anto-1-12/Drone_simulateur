@@ -9,22 +9,25 @@
 
 class OpenGLRenderer : public Render
 {
-    private:
-         GLFWwindow* window;
-         glm::ivec2 size_screen;
-         
+     private:
+          GLFWwindow* window;
+          glm::ivec2 size_screen;
+          std::vector<Mesh> all_mesh;
+          std::vector<Object> all_object;
 
-    public:
+     public:
      
-         OpenGLRenderer(int width, int hieght);
-         ~OpenGLRenderer();
+          OpenGLRenderer(int width, int hieght);
+          ~OpenGLRenderer();
 
-         void InitWindow() override;
-         void Init() override;
-         void Update() override;
-         void Clear() override;
-         bool IsOpen() override;
-         void Events() override;
+          void InitWindow() override;
+          void Init() override;
+          void Update() override;
+          void Clear() override;
+          bool IsOpen() override;
+          void Events() override;
+          void AddMesh() override;
+          void AddObject() override;
 };
 
 #endif
