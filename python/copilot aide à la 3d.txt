@@ -1,0 +1,126 @@
+Voici une manière propre et flexible de représenter un cube en Python, en manipulant :
+
+- 📍 **les coordonnées de ses 8 sommets**,  
+- 🎯 **un centre de gravité (centre du cube)**,  
+- 🔄 **une orientation dans l’espace (via des matrices de rotation)**.
+
+Je te propose une approche simple mais robuste, inspirée de la 3D classique.
+
+---
+
+# 🧊 Représenter un cube autour d’un centre avec orientation
+
+## 1. Définir les sommets d’un cube « canonique »
+
+On part d’un cube centré en \((0,0,0)\) avec une arête de longueur \(2\).  
+Ses sommets sont alors toutes les combinaisons de \((-1, +1)\).
+
+```python
+import numpy as np
+
+# Sommets d'un cube centré en (0,0,0), arête = 2
+cube_vertices = np.array([
+    [-1, -1, -1],
+    [-1, -1,  1],
+    [-1,  1, -1],
+    [-1,  1,  1],
+    [ 1, -1, -1],
+    [ 1, -1,  1],
+    [ 1,  1, -1],
+    [ 1,  1,  1]
+], dtype=float)
+```
+
+Tu peux ensuite multiplier par la demi-longueur d’arête pour obtenir la taille voulue.
+
+---
+
+## 2. Matrices de rotation 3D
+
+On utilise les rotations autour des axes X, Y, Z :
+
+```python
+def rot_x(angle):
+    c, s = np.cos(angle), np.sin(angle)
+    return np.array([
+        [1, 0, 0],
+        [0, c,-s],
+        [0, s, c]
+    ])
+
+def rot_y(angle):
+    c, s = np.cos(angle), np.sin(angle)
+    return np.array([
+        [ c, 0, s],
+        [ 0, 1, 0],
+        [-s, 0, c]
+    ])
+
+def rot_z(angle):
+    c, s = np.cos(angle), np.sin(angle)
+    return np.array([
+        [c,-s, 0],
+        [s, c, 0],
+        [0, 0, 1]
+    ])
+```
+
+Tu peux combiner les rotations comme tu veux :
+
+```python
+def rotation_matrix(rx, ry, rz):
+    return rot_z(rz) @ rot_y(ry) @ rot_x(rx)
+```
+
+---
+
+## 3. Appliquer orientation + translation (centre de gravité)
+
+```python
+def transform_cube(vertices, center, angles, scale=1.0):
+    # angles = (rx, ry, rz)
+    R = rotation_matrix(*angles)
+    scaled = vertices * scale
+    rotated = scaled @ R.T
+    translated = rotated + center
+    return translated
+```
+
+---
+
+## 4. Exemple d’utilisation
+
+```python
+center = np.array([3.0, 2.0, 5.0])  # centre du cube
+angles = (0.3, 0.5, 1.0)            # rotations en radians
+edge = 2.0                          # arête du cube
+
+cube = transform_cube(cube_vertices, center, angles, scale=edge/2)
+
+print(cube)
+```
+
+Tu obtiens les **8 sommets du cube orienté et positionné**.
+
+---
+
+# 🎯 Résultat
+
+Avec ce code, tu peux :
+
+- définir un cube de n’importe quelle taille,
+- le placer où tu veux,
+- lui appliquer n’importe quelle orientation,
+- récupérer les coordonnées exactes de ses sommets.
+
+C’est une base solide pour de la 3D, du calcul géométrique, de la simulation physique, ou même du rendu.
+
+---
+
+Si tu veux, je peux aussi t’aider à :
+
+- visualiser le cube en 3D avec `matplotlib`,
+- gérer des quaternions pour éviter les problèmes de gimbal lock,
+- ajouter des faces, des normales, ou des collisions.
+
+Tu veux aller dans quelle direction ensuite ?
