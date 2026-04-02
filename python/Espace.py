@@ -2,6 +2,8 @@
 # Rappel Orientation:
 #
 
+import numpy
+
 class Obstacle:
     def __init__(self):
         pass
