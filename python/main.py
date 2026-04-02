@@ -30,3 +30,8 @@ class Drone:
 class Moteur:
     def __init__(self,position,orientation):
         pass
+
+class Camera:
+    def __init__(self):
+        pass
+    
