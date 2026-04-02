@@ -14,7 +14,7 @@ public:
     virtual void Clear() = 0;
     virtual bool IsOpen() = 0;
     virtual void Events() = 0;
-    virtual void AddMesh() = 0;
+    virtual void AddMesh(std::string name, std::string path) = 0;
     virtual void AddObject() = 0;
 };
 

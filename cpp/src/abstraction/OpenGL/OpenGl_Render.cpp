@@ -137,18 +137,17 @@ void OpenGLRenderer::Events()
     glfwPollEvents();
 }
 
-void OpenGLRenderer::AddMesh()
+void OpenGLRenderer::AddMesh(std::string name, std::string path)
 {
     Mesh mesh;
 
-    mesh.name = "triangle";
+    mesh.name = name;
 
-    float vertices[] = {
-        // positions
-         0.0f,  0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f
-    };
+    std::vector<Vertex> vertices;
+    if(!loadObjWithTiny("assets/model.obj", vertices)) {
+        std::cout << "Failed to load OBJ\n";
+        return;
+    }
 
     mesh.vertexCount = 3;
 
@@ -160,7 +159,7 @@ void OpenGLRenderer::AddMesh()
 
     //initialiser les VAO et VBO
     glBindBuffer(GL_ARRAY_BUFFER, mesh.VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
     //position et couleur gpas capté
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);

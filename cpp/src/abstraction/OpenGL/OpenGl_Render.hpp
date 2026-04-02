@@ -32,7 +32,7 @@ class OpenGLRenderer : public Render
           void Clear() override;
           bool IsOpen() override;
           void Events() override;
-          void AddMesh() override;
+          void AddMesh(std::string name, std::string path) override;
           void AddObject() override;
 };
 
