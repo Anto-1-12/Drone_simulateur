@@ -2,8 +2,8 @@
 
 Menu::Menu(): 
     Scene(),
-    scneneToChange("Menu"),
-    wantToChange(false)
+    scneneToChange("GameScene"),
+    wantToChange(true)
 {
 }
 

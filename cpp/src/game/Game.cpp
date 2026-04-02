@@ -52,5 +52,5 @@ void Game::run()
         renderer->Events();
     }
 
-    delete(renderer);
+    delete renderer;
 }

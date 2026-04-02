@@ -8,6 +8,7 @@ class GameScene : public Scene
     private:
         std::string scneneToChange;
         bool wantToChange;
+        bool is_init;
 
     public:
         GameScene();

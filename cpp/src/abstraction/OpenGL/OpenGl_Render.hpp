@@ -2,10 +2,12 @@
 #define OPENGLRENDERER
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "render.hpp"
 #include "OpenGLStruct.hpp"
+#include "Utiles.hpp"
 
 class OpenGLRenderer : public Render
 {
@@ -14,6 +16,10 @@ class OpenGLRenderer : public Render
           glm::ivec2 size_screen;
           std::vector<Mesh> all_mesh;
           std::vector<Object> all_object;
+          GLuint modelLoc;
+          GLuint vertexShader;
+          GLuint fragmentShader;
+          GLuint shaderProgram;
 
      public:
      

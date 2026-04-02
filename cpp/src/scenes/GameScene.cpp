@@ -3,7 +3,8 @@
 GameScene::GameScene(): 
     Scene(),
     scneneToChange("Menu"),
-    wantToChange(false)
+    wantToChange(false),
+    is_init(false)
 {
 }
 
@@ -14,7 +15,12 @@ GameScene::~GameScene()
 
 void GameScene::draw(Render& window)
 {
-    
+    if (is_init == false)
+    {
+        window.AddMesh();
+        window.AddObject();
+        is_init = true;
+    }
 }
 
 void GameScene::event()
