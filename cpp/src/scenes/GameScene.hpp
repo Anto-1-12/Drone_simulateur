@@ -2,6 +2,7 @@
 #define GAMESCENE
 
 #include "Scene.hpp"
+#include "Utiles.hpp"
 
 class GameScene : public Scene
 {
@@ -9,6 +10,7 @@ class GameScene : public Scene
         std::string scneneToChange;
         bool wantToChange;
         bool is_init;
+        Transform cube;
 
     public:
         GameScene();

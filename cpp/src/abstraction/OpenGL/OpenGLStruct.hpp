@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <iostream>
+#include "Utiles.hpp"
 
 struct Mesh {
     GLuint VAO;
@@ -14,7 +15,7 @@ struct Mesh {
 
 struct Object {
     Mesh* mesh;
-    glm::mat4 transform;
+    Transform* transform;
 };
 
 #endif
