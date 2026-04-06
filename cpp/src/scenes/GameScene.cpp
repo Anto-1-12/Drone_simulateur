@@ -17,7 +17,7 @@ void GameScene::draw(Render& window)
 {
     if (is_init == false)
     {
-        cube.position = glm::vec3(0,-3,0);
+        cube.position = glm::vec3(0,-3.3,0);
         cube.rotation = glm::vec3(0,0,0);
         cube.scale = glm::vec3(2.5,2.5,2.5);
         window.AddMesh("test","assets/models/tourEiffel.obj");
