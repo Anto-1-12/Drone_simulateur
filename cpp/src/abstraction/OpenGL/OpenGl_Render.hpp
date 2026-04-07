@@ -7,7 +7,6 @@
 #include <GLFW/glfw3.h>
 #include "render.hpp"
 #include "OpenGLStruct.hpp"
-#include "Utiles.hpp"
 
 class OpenGLRenderer : public Render
 {
@@ -16,7 +15,16 @@ class OpenGLRenderer : public Render
           glm::ivec2 size_screen;
           std::vector<Mesh> all_mesh;
           std::vector<Object> all_object;
-          GLuint modelLoc;
+
+          glm::mat4 view;
+          glm::mat4 projection;
+
+          int modelLoc;
+          int viewLoc;
+          int projLoc;
+          int nearLoc;
+          int farLoc;
+          
           GLuint vertexShader;
           GLuint fragmentShader;
           GLuint shaderProgram;
@@ -32,8 +40,9 @@ class OpenGLRenderer : public Render
           void Clear() override;
           bool IsOpen() override;
           void Events() override;
-          void AddMesh() override;
-          void AddObject() override;
+          void AddMesh(std::string name, std::string path) override;
+          void AddObject(std::string mesh_name, Transform& transform) override;
+          void SetView(glm::vec3 position, glm::vec3 vecDirection) override;
 };
 
 #endif

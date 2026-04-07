@@ -99,6 +99,23 @@ void OpenGLRenderer::InitWindow()
     //creation du modeLoc
     glUseProgram(shaderProgram);
     modelLoc = glGetUniformLocation(shaderProgram, "model");
+    viewLoc = glGetUniformLocation(shaderProgram, "view");
+    projLoc = glGetUniformLocation(shaderProgram, "projection");
+    nearLoc = glGetUniformLocation(shaderProgram, "nearPlane");
+    farLoc  = glGetUniformLocation(shaderProgram, "farPlane");
+
+    view = glm::lookAt(
+        glm::vec3(0.0f, 3.0f, 10.0f), // position caméra
+        glm::vec3(0.0f, 0.0f, 0.0f), // cible -> vec direction
+        glm::vec3(0.0f, 1.0f, 0.0f)  // up
+    );
+
+    projection = glm::perspective(
+        glm::radians(45.0f), // FOV
+        (float) size_screen.x / size_screen.y,     // aspect ratio
+        0.1f,                // near
+        100.0f               // far
+    );
 }
 
 void OpenGLRenderer::Init()
@@ -114,9 +131,20 @@ void OpenGLRenderer::Update()
         glBindVertexArray(all_object[i].mesh->VAO);
 
         //passer les donner au shader pour transformer le model et l'envoyer dans l'espace
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(all_object[i].transform));
+        //matrice pour tourner, bouger le model
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(computeModelMatrix(*all_object[i].transform)));
+
+        //matrice pour avoir les infos de la camera
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+        //matrice de projection
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
 
         glDrawArrays(GL_TRIANGLES, 0, all_object[i].mesh->vertexCount);
+
+        glUniform1f(nearLoc, 0.1f);
+        glUniform1f(farLoc, 100.0f);
     }
 
     glfwSwapBuffers(window);
@@ -137,20 +165,31 @@ void OpenGLRenderer::Events()
     glfwPollEvents();
 }
 
-void OpenGLRenderer::AddMesh()
+void OpenGLRenderer::AddMesh(std::string name, std::string path)
 {
+
+    //verifier si le nom n'et pas deja pris
+    for (int i = 0; i < all_mesh.size();i++)
+    {
+        if (all_mesh[i].name == name)
+        {
+            std::cout << "nom de mesh deja pris, nom : " << name <<std::endl;
+            return;
+        }
+    }
+
+    //load l'obj
+    std::vector<Vertex> vertices;
+    if(!loadObjWithTiny(path, vertices)) {
+        std::cout << "Failed to load OBJ\n";
+        return;
+    }
+
     Mesh mesh;
 
-    mesh.name = "triangle";
+    mesh.name = name;
 
-    float vertices[] = {
-        // positions
-         0.0f,  0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f
-    };
-
-    mesh.vertexCount = 3;
+    mesh.vertexCount = vertices.size();
 
     //bind les VAO et VBO
     glGenVertexArrays(1, &mesh.VAO);
@@ -160,11 +199,17 @@ void OpenGLRenderer::AddMesh()
 
     //initialiser les VAO et VBO
     glBindBuffer(GL_ARRAY_BUFFER, mesh.VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
-    //position et couleur gpas capté
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+    //position et couleur
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
     glEnableVertexAttribArray(0);
+    
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoord));
+    glEnableVertexAttribArray(2);
 
     //unbind les buffer
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -173,15 +218,29 @@ void OpenGLRenderer::AddMesh()
     all_mesh.push_back(mesh);
 }
 
-void OpenGLRenderer::AddObject()
-{   
-    std::string name_mesh = "triangle";
-
+void OpenGLRenderer::AddObject(std::string mesh_name, Transform& transform)
+{
+    bool is_init = false;
     for (int i = 0; i < all_mesh.size(); i++)
     {
-        if (all_mesh[i].name == name_mesh)
+        if (all_mesh[i].name == mesh_name)
         {
-            all_object.push_back(Object{&all_mesh[i],glm::mat4(1.0f)});
+            all_object.push_back(Object{&all_mesh[i],&transform});
+            is_init = true;
         }
     }
+
+    if (!is_init)
+    {
+        std::cout<<"il n'y a pas de mesh de ce nom"<<std::endl;
+    }
+}
+
+void OpenGLRenderer::SetView(glm::vec3 position, glm::vec3 vecDirection)
+{
+    view = glm::lookAt(
+        position, // position caméra
+        vecDirection, // cible -> vec direction
+        glm::vec3(0.0f, 1.0f, 0.0f)  // up
+    );
 }

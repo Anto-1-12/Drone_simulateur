@@ -5,11 +5,6 @@ project(Simulateur_De_Drone VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(SFML_DIR "C:/SFML")
-
-include_directories(${SFML_DIR}/include)
-link_directories(${SFML_DIR}/lib)
-
 include_directories(
     PRIVATE_HEADER 
     ${PROJECT_SOURCE_DIR}/cpp/src

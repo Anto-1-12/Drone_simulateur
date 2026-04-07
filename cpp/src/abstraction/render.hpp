@@ -1,6 +1,9 @@
 #ifndef RENDER
 #define RENDER
 
+#include <iostream>
+#include "Utiles.hpp"
+
 class Render
 {
 public:
@@ -14,8 +17,9 @@ public:
     virtual void Clear() = 0;
     virtual bool IsOpen() = 0;
     virtual void Events() = 0;
-    virtual void AddMesh() = 0;
-    virtual void AddObject() = 0;
+    virtual void AddMesh(std::string name, std::string path) = 0;
+    virtual void AddObject(std::string mesh_name, Transform& transform) = 0;
+    virtual void SetView(glm::vec3 position, glm::vec3 vecDirection) = 0;
 };
 
 #endif
