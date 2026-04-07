@@ -19,6 +19,7 @@ public:
     virtual void Events() = 0;
     virtual void AddMesh(std::string name, std::string path) = 0;
     virtual void AddObject(std::string mesh_name, Transform& transform) = 0;
+    virtual void Add2DObject(std::string mesh_name, Transform& transform) = 0;
     virtual void SetView(glm::vec3 position, glm::vec3 vecDirection) = 0;
 };
 

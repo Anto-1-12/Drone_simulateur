@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "render.hpp"
@@ -15,9 +16,11 @@ class OpenGLRenderer : public Render
           glm::ivec2 size_screen;
           std::vector<Mesh> all_mesh;
           std::vector<Object> all_object;
+          std::vector<Object> all_2D_object;
 
           glm::mat4 view;
           glm::mat4 projection;
+          glm::mat4 projection_2D;
 
           int modelLoc;
           int viewLoc;
@@ -28,6 +31,10 @@ class OpenGLRenderer : public Render
           GLuint vertexShader;
           GLuint fragmentShader;
           GLuint shaderProgram;
+
+          GLuint vertexShader2D;
+          GLuint fragmentShader2D;
+          GLuint shaderProgram2D;
 
      public:
      
@@ -42,6 +49,7 @@ class OpenGLRenderer : public Render
           void Events() override;
           void AddMesh(std::string name, std::string path) override;
           void AddObject(std::string mesh_name, Transform& transform) override;
+          void Add2DObject(std::string mesh_name, Transform& transform) override;
           void SetView(glm::vec3 position, glm::vec3 vecDirection) override;
 };
 

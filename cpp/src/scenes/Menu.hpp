@@ -8,6 +8,8 @@ class Menu : public Scene
     private:
         std::string scneneToChange;
         bool wantToChange;
+        bool is_init;
+        Transform rectangle;
 
     public:
         Menu();
