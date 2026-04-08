@@ -15,7 +15,7 @@ public:
     
     //methode d'update du jeu
     virtual void event() = 0;
-    virtual void update(float dt) = 0;
+    virtual void update(float dt,Render& window) = 0;
     virtual void draw(Render& window) = 0;
 
     //methode pour le changement de scene

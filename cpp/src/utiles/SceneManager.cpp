@@ -44,9 +44,9 @@ void SceneManager::event()
 }
 
 //update de la scene + detection de changement de scene
-void SceneManager::update(float dt)
+void SceneManager::update(float dt,Render& window)
 {
-    scene->update(dt);
+    scene->update(dt,window);
     
     //regarder si on veut changer de scene
     if(scene->wantToChangeScene())

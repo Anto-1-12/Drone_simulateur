@@ -34,7 +34,7 @@ void Game::run()
         while (accumulator >= dt) 
         {
             
-            sceneManager.update(dt);
+            sceneManager.update(dt,*renderer);
             // reinitialisation de l'accumulateur
             accumulator -= dt;
         }

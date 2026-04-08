@@ -18,7 +18,7 @@ class SceneManager{
         ~SceneManager();
         void changeScene(Scene* newScene);
         void event();
-        void update(float dt);
+        void update(float dt,Render& window);
         void draw(Render& window);
 };
 

@@ -16,7 +16,7 @@ class GameScene : public Scene
         GameScene();
         ~GameScene();
         void event() override;
-        void update(float dt) override;
+        void update(float dt,Render& window) override;
         void draw(Render& window) override;
 
         bool wantToChangeScene() override;

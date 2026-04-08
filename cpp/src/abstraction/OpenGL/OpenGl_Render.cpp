@@ -338,3 +338,53 @@ void OpenGLRenderer::SetView(glm::vec3 position, glm::vec3 vecDirection)
         glm::vec3(0.0f, 1.0f, 0.0f)  // up
     );
 }
+
+void OpenGLRenderer::ClearMesh()
+{
+    std::vector<Mesh>().swap(all_mesh);
+}
+
+void OpenGLRenderer::ClearObject()
+{
+    std::vector<Object>().swap(all_object);
+}
+
+void OpenGLRenderer::Clear2DObject()
+{
+    std::vector<Object>().swap(all_2D_object);
+}
+
+glm::vec2 OpenGLRenderer::getMousePos()
+{
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    return glm::vec2(xpos,ypos);
+}
+
+bool OpenGLRenderer::IsMousePressed(int button)
+{
+    // si button == :
+    // 0 == gauche
+    // 1 == droite
+    // 2 == molette
+    if (glfwGetMouseButton(window, button) == GLFW_PRESS) {
+    // clic gauche enfoncé
+        return true; 
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool OpenGLRenderer::IsKeyPressed(int key)
+{
+    // key correspond au code ascii et au touche du qwerty
+    if (glfwGetKey(window, key) == GLFW_PRESS) {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
