@@ -26,6 +26,7 @@ public:
     virtual void SetView(glm::vec3 position, glm::vec3 vecDirection) = 0;
     virtual glm::vec2 getMousePos() = 0;
     virtual bool IsMousePressed(int button) = 0;
+    virtual bool IsKeyPressed(int key) = 0;
 };
 
 #endif

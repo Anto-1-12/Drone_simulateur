@@ -376,3 +376,15 @@ bool OpenGLRenderer::IsMousePressed(int button)
         return false;
     }
 }
+
+bool OpenGLRenderer::IsKeyPressed(int key)
+{
+    // key correspond au code ascii et au touche du qwerty
+    if (glfwGetKey(window, key) == GLFW_PRESS) {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

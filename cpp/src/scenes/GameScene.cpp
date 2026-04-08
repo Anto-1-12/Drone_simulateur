@@ -39,6 +39,12 @@ void GameScene::event()
 void GameScene::update(float dt,Render& window)
 {
     cube.rotation.y += 20 * dt;
+    //65 = Q
+    //87 = Z
+    if (window.IsKeyPressed(87))
+    {
+        std::cout<<"test"<<std::endl;
+    }
 }
 
 bool GameScene::wantToChangeScene()
