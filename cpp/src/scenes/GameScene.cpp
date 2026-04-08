@@ -17,6 +17,11 @@ void GameScene::draw(Render& window)
 {
     if (is_init == false)
     {
+
+        window.ClearMesh();
+        window.ClearObject();
+        window.Clear2DObject();
+
         cube.position = glm::vec3(0,-3.3,0);
         cube.rotation = glm::vec3(0,0,0);
         cube.scale = glm::vec3(2.5,2.5,2.5);
@@ -31,7 +36,7 @@ void GameScene::event()
     
 }
 
-void GameScene::update(float dt)
+void GameScene::update(float dt,Render& window)
 {
     cube.rotation.y += 20 * dt;
 }

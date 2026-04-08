@@ -50,7 +50,12 @@ class OpenGLRenderer : public Render
           void AddMesh(std::string name, std::string path) override;
           void AddObject(std::string mesh_name, Transform& transform) override;
           void Add2DObject(std::string mesh_name, Transform& transform) override;
+          void ClearMesh();
+          void ClearObject();
+          void Clear2DObject();
           void SetView(glm::vec3 position, glm::vec3 vecDirection) override;
+          glm::vec2 getMousePos();
+          bool IsMousePressed(int button);
 };
 
 #endif

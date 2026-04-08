@@ -3,8 +3,9 @@
 Menu::Menu(): 
     Scene(),
     scneneToChange("GameScene"),
-    wantToChange(true),
-    is_init(false)
+    wantToChange(false),
+    is_init(false),
+    button1(glm::vec2(675,325),glm::vec2(250,250))
 {
 }
 
@@ -17,13 +18,13 @@ void Menu::draw(Render& window)
 {
     if (is_init == false)
     {
-        rectangle.position = glm::vec3(675,325,0);
-        rectangle.rotation = glm::vec3(0,0,0);
-        rectangle.scale = glm::vec3(250,250,1);
-        window.AddMesh("2D","assets/models/rectangle.obj");
-        window.Add2DObject("2D",rectangle);
+        window.ClearMesh();
+        window.ClearObject();
+        window.Clear2DObject();
         is_init = true;
     }
+    
+    button1.draw(window);
 
 }
 
@@ -32,9 +33,15 @@ void Menu::event()
     
 }
 
-void Menu::update(float dt)
+void Menu::update(float dt,Render& window)
 {
+    button1.update(window);
 
+    if(button1.buttonIsClicked())
+    {
+        scneneToChange = "GameScene";
+        wantToChange = true;
+    }
 }
 
 bool Menu::wantToChangeScene()

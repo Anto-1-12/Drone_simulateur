@@ -2,6 +2,7 @@
 #define MENU
 
 #include "Scene.hpp"
+#include "Button.hpp"
 
 class Menu : public Scene
 {
@@ -11,11 +12,13 @@ class Menu : public Scene
         bool is_init;
         Transform rectangle;
 
+        Button button1;
+
     public:
         Menu();
         ~Menu();
         void event() override;
-        void update(float dt) override;
+        void update(float dt,Render& window) override;
         void draw(Render& window) override;
 
         bool wantToChangeScene() override;

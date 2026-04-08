@@ -20,7 +20,12 @@ public:
     virtual void AddMesh(std::string name, std::string path) = 0;
     virtual void AddObject(std::string mesh_name, Transform& transform) = 0;
     virtual void Add2DObject(std::string mesh_name, Transform& transform) = 0;
+    virtual void ClearMesh() = 0;
+    virtual void ClearObject() = 0;
+    virtual void Clear2DObject() = 0;
     virtual void SetView(glm::vec3 position, glm::vec3 vecDirection) = 0;
+    virtual glm::vec2 getMousePos() = 0;
+    virtual bool IsMousePressed(int button) = 0;
 };
 
 #endif
