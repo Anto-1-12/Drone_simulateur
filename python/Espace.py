@@ -48,7 +48,7 @@ class Drone:
         print(self.centregravité)
     def Minhauteur(self):
         if self.centregravité[1]<0:
-            self.centregravité[1]+10
+            self.centregravité[1]+100
 
 
 class Moteur:
