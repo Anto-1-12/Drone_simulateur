@@ -11,6 +11,7 @@ struct Mesh {
     GLuint VBO;
     int vertexCount;
     std::string name;
+    unsigned int texture;
 };
 
 struct Object {

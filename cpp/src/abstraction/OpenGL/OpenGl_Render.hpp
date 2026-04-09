@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <STB/stb_image.h>
 #include "render.hpp"
 #include "OpenGLStruct.hpp"
 

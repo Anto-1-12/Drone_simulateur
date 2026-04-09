@@ -3,6 +3,9 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "TOL/tiny_obj_loader.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "STB/stb_image.h"
+
 //par chatgpt
 std::string readFile(const char* path)
 {
