@@ -60,3 +60,4 @@ class Moteur:
 #tests
 D=Drone()
 D.cravité()
+#https://rcdrone.top/fr/blogs/articles-fr/fpv-compute-thrust-to-weight?srsltid=AfmBOor1xA7qPBdZnOOoxTh3var7Lr_gRJ9PqXd6E7bw_4Sq1dtM0-1Q
