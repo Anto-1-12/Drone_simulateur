@@ -46,6 +46,9 @@ class Drone:
     def momentum(self):
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
         print(self.centregravité)
+    def Minhauteur(self):
+        if self.centregravité[1]<0:
+            self.centregravité[1]+10
 
 
 class Moteur:
