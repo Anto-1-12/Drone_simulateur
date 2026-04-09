@@ -61,3 +61,19 @@ class Moteur:
 D=Drone()
 D.cravité()
 #https://rcdrone.top/fr/blogs/articles-fr/fpv-compute-thrust-to-weight?srsltid=AfmBOor1xA7qPBdZnOOoxTh3var7Lr_gRJ9PqXd6E7bw_4Sq1dtM0-1Q
+
+"""""
+Poussé en N pour chaque moteur pour un drone de 800g avec 4 moteurs (just pour etre en stationnaire)
+P = m⋅g
+  = 0,8x9,81
+  = 7,85N
+  = 7,85/4
+  ≈ 1,96N
+Il faut idealement avoir 3 fois cette force par moteur pour que le drone vol correctement donc :
+    7,85x3 ≈ 23,5N
+
+    Donc Min par moteur:
+      = 4N
+    Max : 
+      = 6N
+"""""
