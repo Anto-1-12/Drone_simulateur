@@ -39,6 +39,7 @@ class Drone:
     def tickdemouvement(self):
         self.cravité()
         self.momentum()
+        self.MinHauteur()
 
     def cravité(self):
         self.centregravité = [centre_elt + grav_elt for grav_elt, centre_elt in zip(self.Gravité, self.centregravité)]
@@ -46,9 +47,10 @@ class Drone:
     def momentum(self):
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
         print(self.centregravité)
-    def Minhauteur(self):
+    def MinHauteur(self):
         if self.centregravité[1]<0:
-            self.centregravité[1]+100
+            self.centregravité[1] += 10 
+            
 
 
 class Moteur:
