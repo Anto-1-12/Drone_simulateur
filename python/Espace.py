@@ -1,6 +1,13 @@
-# Rappel Coordonnées (X,Y,Z)
+# Rappel Coordonnées (X,Y,Z) = index[0,1,2] centregravité==0 alors explosion
 # Rappel Orientation:
-#
+#https://www.drone-normandie.com/forces-aerodynamiques/
+#https://dronetech-18.webself.net/les-forces
+
+#Cravité:
+G=9.8
+P=G*0.8
+#pas sûr de ça
+
 
 
 class Obstacle:
@@ -17,7 +24,7 @@ class Drone:
              -1,
              0]
     #Vecteur momentum :
-    Momentum=[0,
+    Momentum=[1,
               0,
               0]
 
@@ -49,7 +56,16 @@ class Drone:
 
 
 class Moteur:
+    #N=4?
     def __init__(self,position,orientation):
+        self.vecteurdirection=[]
+        self.position=position
+        self.orientation=orientation
+
+    def ON(Haut,Devant,Derrière,Gauche,Droite):
+        pass
+
+    def update_position_moteurs():
         pass
 
 #tests

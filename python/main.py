@@ -14,6 +14,9 @@ class Game :
         self.run=True
 
     def inputs(self):
+        #reçoit click
+        #if reçoit click :
+        
         pass
 
     def loop(self):
