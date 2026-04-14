@@ -17,7 +17,7 @@ public:
     virtual void Clear() = 0;
     virtual bool IsOpen() = 0;
     virtual void Events() = 0;
-    virtual void AddMesh(std::string name, std::string path) = 0;
+    virtual void AddMesh(std::string name, std::string path, std::string texturePath) = 0;
     virtual void AddObject(std::string mesh_name, Transform& transform) = 0;
     virtual void Add2DObject(std::string mesh_name, Transform& transform) = 0;
     virtual void ClearMesh() = 0;

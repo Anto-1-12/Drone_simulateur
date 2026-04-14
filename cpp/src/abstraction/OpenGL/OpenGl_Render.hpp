@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <STB/stb_image.h>
 #include "render.hpp"
 #include "OpenGLStruct.hpp"
 
@@ -47,7 +48,7 @@ class OpenGLRenderer : public Render
           void Clear() override;
           bool IsOpen() override;
           void Events() override;
-          void AddMesh(std::string name, std::string path) override;
+          void AddMesh(std::string name, std::string path, std::string texturePath) override;
           void AddObject(std::string mesh_name, Transform& transform) override;
           void Add2DObject(std::string mesh_name, Transform& transform) override;
           void ClearMesh() override;

@@ -213,6 +213,15 @@ void OpenGLRenderer::Update()
     glUseProgram(shaderProgram2D);
     for (int a = 0; a < all_2D_object.size(); a++)
     {
+        //                  passer la texture au shader
+        //-----------------------------------------------------------------
+        glUniform1i(glGetUniformLocation(shaderProgram2D, "texture1"), 0);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, all_2D_object[a].mesh->texture);
+
+        //-----------------------------------------------------------------
+
         glBindVertexArray(all_2D_object[a].mesh->VAO);
 
         glm::mat4 model = computeModelMatrix(*all_2D_object[a].transform);
@@ -241,7 +250,7 @@ void OpenGLRenderer::Events()
     glfwPollEvents();
 }
 
-void OpenGLRenderer::AddMesh(std::string name, std::string path)
+void OpenGLRenderer::AddMesh(std::string name, std::string path, std::string texturePath)
 {
 
     //verifier si le nom n'et pas deja pris
@@ -267,6 +276,44 @@ void OpenGLRenderer::AddMesh(std::string name, std::string path)
 
     mesh.vertexCount = vertices.size();
 
+    //texture 
+
+    glGenTextures(1, &mesh.texture);
+    glBindTexture(GL_TEXTURE_2D, mesh.texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    char * txtPath = new char[texturePath.size() + 1];
+    std::strcpy(txtPath,texturePath.c_str());
+    
+    int width, height, channels;
+    unsigned char *data = stbi_load(txtPath, &width, &height, &channels, 0);
+
+    delete[] txtPath;
+
+    if (!data) 
+    {
+         std::cout <<"Erreur chargement image\n"<<std::endl;
+    }
+    else
+    {
+        GLenum format;
+
+        if (channels == 1) format = GL_RED;
+        else if (channels == 3) format = GL_RGB;
+        else if (channels == 4) format = GL_RGBA;
+
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        stbi_image_free(data);
+    }
+
     //bind les VAO et VBO
     glGenVertexArrays(1, &mesh.VAO);
     glGenBuffers(1, &mesh.VBO);
@@ -284,6 +331,7 @@ void OpenGLRenderer::AddMesh(std::string name, std::string path)
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
     glEnableVertexAttribArray(1);
 
+    //Texture coo
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoord));
     glEnableVertexAttribArray(2);
 
