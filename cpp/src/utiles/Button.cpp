@@ -1,7 +1,9 @@
 #include "Button.hpp"
 
-Button::Button(glm::vec2 pos, glm::vec2 size):
-    isInit(false)
+Button::Button(glm::vec2 pos, glm::vec2 size, std::string txtPath, std::string meshName):
+    isInit(false),
+    texturePath(txtPath),
+    name(meshName)
 {
     buttonPos.position = glm::vec3(pos,0);
     buttonPos.rotation = glm::vec3(0,0,0);
@@ -32,8 +34,8 @@ void Button::draw(Render& window)
 {
     if (!isInit)
     {
-        window.AddMesh("2D","assets/models/rectangle.obj");
-        window.Add2DObject("2D",buttonPos);
+        window.AddMesh(name,"assets/models/rectangle.obj",texturePath);
+        window.Add2DObject(name,buttonPos);
         isInit = true;
     }
 }

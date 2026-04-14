@@ -15,10 +15,13 @@ private:
     bool mouseIsOnItSelf = false;
     bool isClicked = false;
 
+    std::string texturePath;
+    std::string name;
+
     bool checkMouse(Render& window);
 
 public:
-    Button(glm::vec2 pos, glm::vec2 size);
+    Button(glm::vec2 pos, glm::vec2 size, std::string txtPath, std::string meshName);
     ~Button();
     void draw(Render& window);
     void update(Render& window);

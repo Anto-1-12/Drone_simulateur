@@ -250,7 +250,7 @@ void OpenGLRenderer::Events()
     glfwPollEvents();
 }
 
-void OpenGLRenderer::AddMesh(std::string name, std::string path)
+void OpenGLRenderer::AddMesh(std::string name, std::string path, std::string texturePath)
 {
 
     //verifier si le nom n'et pas deja pris
@@ -286,9 +286,14 @@ void OpenGLRenderer::AddMesh(std::string name, std::string path)
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    char * txtPath = new char[texturePath.size() + 1];
+    std::strcpy(txtPath,texturePath.c_str());
     
     int width, height, channels;
-    unsigned char *data = stbi_load("assets/textures/texture.png", &width, &height, &channels, 0);
+    unsigned char *data = stbi_load(txtPath, &width, &height, &channels, 0);
+
+    delete[] txtPath;
 
     if (!data) 
     {

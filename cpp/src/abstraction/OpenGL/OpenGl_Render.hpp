@@ -48,7 +48,7 @@ class OpenGLRenderer : public Render
           void Clear() override;
           bool IsOpen() override;
           void Events() override;
-          void AddMesh(std::string name, std::string path) override;
+          void AddMesh(std::string name, std::string path, std::string texturePath) override;
           void AddObject(std::string mesh_name, Transform& transform) override;
           void Add2DObject(std::string mesh_name, Transform& transform) override;
           void ClearMesh() override;

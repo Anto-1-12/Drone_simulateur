@@ -27,7 +27,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 # chemin vers tes libs
 target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/cpp/lib)
 
-target_link_libraries(${PROJECT_NAME} glfw3 opengl32 gdi32)
+target_link_libraries(${PROJECT_NAME} glfw3 opengl32 gdi32 ws2_32)
 
 # ---- Copie les assets dans le dossier de build ----
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

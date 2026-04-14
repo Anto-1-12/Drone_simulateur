@@ -3,6 +3,11 @@
 
 #include "Scene.hpp"
 #include "Utiles.hpp"
+#include <iostream>
+#include <cstring>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <unistd.h>
 
 class GameScene : public Scene
 {
@@ -11,6 +16,8 @@ class GameScene : public Scene
         bool wantToChange;
         bool is_init;
         Transform cube;
+        SOCKET sock;
+        sockaddr_in server;
 
     public:
         GameScene();
