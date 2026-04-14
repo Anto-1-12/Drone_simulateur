@@ -8,6 +8,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <unistd.h>
+#include <nlohmann/json.hpp>
 
 class GameScene : public Scene
 {
@@ -18,6 +19,7 @@ class GameScene : public Scene
         Transform cube;
         SOCKET sock;
         sockaddr_in server;
+        using json = nlohmann::json;
 
     public:
         GameScene();
@@ -28,6 +30,8 @@ class GameScene : public Scene
 
         bool wantToChangeScene() override;
         std::string getSceneChangeType() override;
+        void sync();
+        void sendMessage(std::string command);
 };
 
 #endif

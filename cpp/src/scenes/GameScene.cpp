@@ -61,18 +61,11 @@ void GameScene::update(float dt,Render& window)
     //87 = Z
     if (window.IsKeyPressed(87))
     {
-        std::cout<<"test"<<std::endl;
+        sendMessage(R"({"cmd":"avancer"})");
     }
 
-    std::string msg = "Bonjour depuis C++";
-    send(sock, msg.c_str(), msg.size(), 0);
+    sync();
 
-    char buffer[1024] = {0};
-    int bytes = recv(sock, buffer, 1024, 0);
-
-    if (bytes > 0) {
-        std::cout << "Réponse serveur: " << buffer << std::endl;
-    }
 }
 
 bool GameScene::wantToChangeScene()
@@ -83,4 +76,26 @@ bool GameScene::wantToChangeScene()
 std::string GameScene::getSceneChangeType()
 {
     return scneneToChange;
+}
+
+void GameScene::sendMessage(std::string command)
+{
+    command += "\n";
+    send(sock, command.c_str(), command.size(), 0);
+}
+
+void GameScene::sync()
+{
+    char buffer[1024] = {0};
+    int bytes = recv(sock, buffer, 1024, 0);
+
+    if (bytes > 0)
+    {
+        std::string data(buffer);
+        json j = json::parse(data);
+        std::string cmd = j["cmd"];
+        int x = j["x"];
+        int y = j["y"];
+        int z = j["z"];
+    }
 }
