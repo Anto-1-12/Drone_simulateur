@@ -16,10 +16,13 @@ class GameScene : public Scene
         std::string scneneToChange;
         bool wantToChange;
         bool is_init;
-        Transform cube;
+
         SOCKET sock;
         sockaddr_in server;
         using json = nlohmann::json;
+
+        Transform cube;
+        Transform drone;
 
     public:
         GameScene();
