@@ -18,9 +18,12 @@ GameScene::GameScene() :
     sockaddr_in server;
     memset(&server, 0, sizeof(server));
 
+    //"169.254.40.10"
+    //"127.0.0.1" -> local
+    //"192.168.88.177"
     server.sin_family = AF_INET;
     server.sin_port = htons(5000); // même port que Python
-    inet_pton(AF_INET, "192.168.88.177", &server.sin_addr); // IP du serveur Python
+    inet_pton(AF_INET, "127.0.0.1", &server.sin_addr); // IP du serveur Python
 
     if (connect(sock, (sockaddr*)&server, sizeof(server)) < 0) {
         std::cerr << "Erreur de connexion\n";
@@ -28,9 +31,7 @@ GameScene::GameScene() :
         std::cout << "Connecté au serveur\n";
     }
 }
-    //"169.254.40.10"
-    //"127.0.0.1" -> local
-    //"192.168.88.177"
+    
 GameScene::~GameScene()
 {
     closesocket(sock);
