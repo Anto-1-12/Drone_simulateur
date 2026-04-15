@@ -16,9 +16,10 @@ GameScene::GameScene():
         return;
     }
 
+    //"127.0.0.1" -> local
     server.sin_family = AF_INET;
     server.sin_port = htons(5000);
-    inet_pton(AF_INET, "127.0.0.1", &server.sin_addr);
+    inet_pton(AF_INET, "192.168.88.177", &server.sin_addr);
 
     if (connect(sock, (sockaddr*)&server, sizeof(server)) < 0) {
         std::cerr << "Erreur de connexion\n";
