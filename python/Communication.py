@@ -31,8 +31,8 @@ conn.close()
 
 def InitialisationConnection():
     import socket
-    HOST = "127.0.0.1" #local host
-    PORT = 5000 #port de comunication (le meme dans le cpp)
+    HOST = "192.168.88.177" #local host
+    PORT = 9000 #port de comunication (le meme dans le cpp)
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((HOST, PORT))
@@ -45,9 +45,8 @@ def InitialisationConnection():
 
 
 def Canalouvert():
-
     data = conn.recv(1024)
-    for x in range(0):
+    for x in range(1):
         if not data:
             break
     message = data.decode()
