@@ -1,6 +1,6 @@
 #include "GameScene.hpp"
 
-GameScene::GameScene(): 
+GameScene::GameScene():
     Scene(),
     scneneToChange("Menu"),
     wantToChange(false),
@@ -16,10 +16,12 @@ GameScene::GameScene():
         return;
     }
 
+    //"169.254.40.10"
     //"127.0.0.1" -> local
+    //"192.168.88.177"
     server.sin_family = AF_INET;
-    server.sin_port = htons(5000);
-    inet_pton(AF_INET, "192.168.88.177", &server.sin_addr);
+    server.sin_port = htons(9000);
+    inet_pton(AF_INET, "169.254.40.10", &server.sin_addr);
 
     if (connect(sock, (sockaddr*)&server, sizeof(server)) < 0) {
         std::cerr << "Erreur de connexion\n";
@@ -41,11 +43,19 @@ void GameScene::draw(Render& window)
         window.ClearObject();
         window.Clear2DObject();
 
-        cube.position = glm::vec3(0,-3.3,0);
+        cube.position = glm::vec3(-4,-3,0);
         cube.rotation = glm::vec3(0,0,0);
         cube.scale = glm::vec3(2.5,2.5,2.5);
         window.AddMesh("test","assets/models/tourEiffel.obj","assets/textures/texture.png");
         window.AddObject("test",cube);
+
+        drone.position = glm::vec3(0,0,0);
+        drone.rotation = glm::vec3(0,0,0);
+        drone.scale = glm::vec3(0.05,0.05,0.05);
+
+        window.AddMesh("drone","assets/models/drone.obj","assets/textures/texture.png");
+        window.AddObject("drone",drone);
+        
         is_init = true;
     }
 }
@@ -95,8 +105,11 @@ void GameScene::sync()
         std::string data(buffer);
         json j = json::parse(data);
         std::string cmd = j["cmd"];
-        int x = j["x"];
-        int y = j["y"];
-        int z = j["z"];
+        if (cmd == "sync_drone_pos")
+        {
+            drone.position.x = j["x"];
+            drone.position.y = j["y"];
+            drone.position.z = j["z"];
+        }
     }
 }

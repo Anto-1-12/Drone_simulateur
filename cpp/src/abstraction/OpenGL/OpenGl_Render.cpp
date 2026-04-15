@@ -232,6 +232,9 @@ void OpenGLRenderer::Update()
         glDrawArrays(GL_TRIANGLES, 0, all_2D_object[a].mesh->vertexCount);
     }
 
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindVertexArray(0);
+
     glfwSwapBuffers(window);
 }
 
@@ -340,6 +343,7 @@ void OpenGLRenderer::AddMesh(std::string name, std::string path, std::string tex
     glBindVertexArray(0);
 
     all_mesh.push_back(mesh);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void OpenGLRenderer::AddObject(std::string mesh_name, Transform& transform)
