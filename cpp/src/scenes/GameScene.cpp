@@ -1,11 +1,10 @@
 #include "GameScene.hpp"
 
-GameScene::GameScene():
+GameScene::GameScene() :
     Scene(),
     scneneToChange("Menu"),
     wantToChange(false),
-    is_init(false),
-    sock(socket(AF_INET, SOCK_STREAM, 0))
+    is_init(false)
 {
     WSADATA wsa;
     WSAStartup(MAKEWORD(2,2), &wsa);
@@ -16,18 +15,22 @@ GameScene::GameScene():
         return;
     }
 
-    //"169.254.40.10"
-    //"127.0.0.1" -> local
-    //"192.168.88.177"
+    sockaddr_in server;
+    memset(&server, 0, sizeof(server));
+
     server.sin_family = AF_INET;
-    server.sin_port = htons(9000);
-    inet_pton(AF_INET, "169.254.40.10", &server.sin_addr);
+    server.sin_port = htons(5000); // même port que Python
+    inet_pton(AF_INET, "192.168.88.177", &server.sin_addr); // IP du serveur Python
 
     if (connect(sock, (sockaddr*)&server, sizeof(server)) < 0) {
         std::cerr << "Erreur de connexion\n";
+    } else {
+        std::cout << "Connecté au serveur\n";
     }
 }
-
+    //"169.254.40.10"
+    //"127.0.0.1" -> local
+    //"192.168.88.177"
 GameScene::~GameScene()
 {
     closesocket(sock);
