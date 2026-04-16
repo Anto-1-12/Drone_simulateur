@@ -29,7 +29,7 @@ class Game :
                 self.inputs()
                 self.drone.tickdemouvement()
                 Canalouvert()
-                Transmission("2kpi")
+                Transmission(str({'cmd':'Hellow'}))
                 
         
     
