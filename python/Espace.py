@@ -147,6 +147,19 @@ class Drone:
         ])
     
 
+    def rotation_matrix(rx, ry, rz):
+        return rot_z(rz) @ rot_y(ry) @ rot_x(rx)
+
+    def transform_cube(vertices, center, angles, scale=1.0):
+        # angles = (rx, ry, rz)
+        R = rotation_matrix(*angles)
+        scaled = vertices * scale
+        rotated = scaled @ R.T
+        translated = rotated + center
+        return translated  
+
+
+
 
 class Moteur:
     #N=4?

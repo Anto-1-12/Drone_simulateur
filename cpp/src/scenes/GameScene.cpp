@@ -115,5 +115,9 @@ void GameScene::sync()
             drone.position.y = j["y"];
             drone.position.z = j["z"];
         }
+        else
+        {
+            std::cout<<"test"<<std::endl;
+        }
     }
 }

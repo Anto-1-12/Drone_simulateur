@@ -57,8 +57,7 @@ def Canalouvert():
         print('RAS')
 
 def Transmission(message):
-    response = message
-    conn.sendall(response.encode())
+    conn.sendall(message.encode())
 
 def FermetureCanal():
     conn.close()
