@@ -43,8 +43,8 @@ def InitialisationConnection():
     conn, addr = server.accept()
     print("Connecté à:", addr)
     #fcntl( sock, F_SETFL, O_NONBLOCK)
-    socket.fcntl( server, socket.F_SETFL, socket.O_NONBLOCK)
-    #conn.setblocking(False)
+    #socket.fcntl( server, socket.F_SETFL, socket.O_NONBLOCK)
+    conn.setblocking(False)
 
 
 def Canalouvert():
