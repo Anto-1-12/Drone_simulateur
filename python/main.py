@@ -1,6 +1,7 @@
 from Espace import Drone
 from Communication import InitialisationConnection,Canalouvert,Transmission,FermetureCanal
 import time
+import json
 
 class Camera:
     def __init__(self):
@@ -29,7 +30,7 @@ class Game :
                 self.inputs()
                 self.drone.tickdemouvement()
                 Canalouvert()
-                Transmission(str({'cmd':'Hellow'}))
+                Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
                 
         
     
