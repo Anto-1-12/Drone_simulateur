@@ -42,15 +42,15 @@ def InitialisationConnection():
     global conn
     conn, addr = server.accept()
     print("Connecté à:", addr)
+    conn.setblocking=False
 
 
 def Canalouvert():
     data = conn.recv(1024)
-    for x in range(1):
-        if not data:
-            break
-    message = data.decode()
     print("Reçu:", message)
+    if data :
+        message = data.decode()
+        print("Reçu:", message)  
 
 def Transmission(message):
     response = "Reçu: " + message
