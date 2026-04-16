@@ -49,7 +49,6 @@ def InitialisationConnection():
 
 def Canalouvert():
     data = conn.recv(1024)
-    print("Reçu:", message)
     if data :
         message = data.decode()
         print("Reçu:", message)  
