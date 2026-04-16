@@ -48,8 +48,8 @@ def InitialisationConnection():
 
 
 def Canalouvert():
-    data = conn.recv(1024)
     try :
+        data = conn.recv(1024)
         if data :
             message = data.decode()
             print("Reçu:", message) 
