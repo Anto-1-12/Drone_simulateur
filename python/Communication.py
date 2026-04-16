@@ -31,7 +31,7 @@ conn.close()
 
 def InitialisationConnection():
     import socket
-    HOST = "192.168.88.177" #local host
+    HOST = "127.0.0.1" #local host
     PORT = 5000 #port de comunication (le meme dans le cpp)
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
