@@ -7,7 +7,7 @@
 G=9.8
 P=G*0.8
 #pas sûr de ça
-
+import numpy as np
 
 
 class Obstacle:
@@ -57,7 +57,30 @@ class Drone:
     def MinHauteur(self):
         if self.centregravité[1]<0:
             self.centregravité[1] += 10 
-            
+    
+    def rotation_x(angle):
+        c, s = np.cos(angle), np.sin(angle)
+        return np.array([
+            [1, 0, 0],
+            [0, c,-s],
+            [0, s, c]
+        ])
+
+    def rotation_y(angle):
+        c, s = np.cos(angle), np.sin(angle)
+        return np.array([
+            [ c, 0, s],
+            [ 0, 1, 0],
+            [-s, 0, c]
+        ])
+
+    def rotation_z(angle):
+        c, s = np.cos(angle), np.sin(angle)
+        return np.array([
+            [c,-s, 0],
+            [s, c, 0],
+            [0, 0, 1]
+        ])
 
 
 class Moteur:
@@ -94,26 +117,3 @@ Il faut idealement avoir 3 fois cette force par moteur pour que le drone vol cor
       = 6N
 """""
 
-def rotation_x(angle):
-    c, s = np.cos(angle), np.sin(angle)
-    return np.array([
-        [1, 0, 0],
-        [0, c,-s],
-        [0, s, c]
-    ])
-
-def rotation_y(angle):
-    c, s = np.cos(angle), np.sin(angle)
-    return np.array([
-        [ c, 0, s],
-        [ 0, 1, 0],
-        [-s, 0, c]
-    ])
-
-def rotation_z(angle):
-    c, s = np.cos(angle), np.sin(angle)
-    return np.array([
-        [c,-s, 0],
-        [s, c, 0],
-        [0, 0, 1]
-    ])
