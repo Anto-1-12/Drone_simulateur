@@ -42,7 +42,9 @@ def InitialisationConnection():
     global conn
     conn, addr = server.accept()
     print("Connecté à:", addr)
-    conn.setblocking(False)
+    #fcntl( sock, F_SETFL, O_NONBLOCK)
+    socket.fcntl( server, socket.F_SETFL, socket.O_NONBLOCK)
+    #conn.setblocking(False)
 
 
 def Canalouvert():
