@@ -57,7 +57,7 @@ class Drone:
     def MinHauteur(self):
         if self.centregravité[1]<0:
             self.centregravité[1] += 10 
-    
+    #Ci-dessous : fonction d'angles
     def rotation_x(angle):
         c, s = np.cos(angle), np.sin(angle)
         return np.array([
@@ -65,7 +65,6 @@ class Drone:
             [0, c,-s],
             [0, s, c]
         ])
-
     def rotation_y(angle):
         c, s = np.cos(angle), np.sin(angle)
         return np.array([
@@ -73,7 +72,6 @@ class Drone:
             [ 0, 1, 0],
             [-s, 0, c]
         ])
-
     def rotation_z(angle):
         c, s = np.cos(angle), np.sin(angle)
         return np.array([
@@ -81,6 +79,20 @@ class Drone:
             [s, c, 0],
             [0, 0, 1]
         ])
+    
+
+    def rotation_matrix(rx, ry, rz):
+        return rot_z(rz) @ rot_y(ry) @ rot_x(rx)
+
+    def transform_cube(vertices, center, angles, scale=1.0):
+        # angles = (rx, ry, rz)
+        R = rotation_matrix(*angles)
+        scaled = vertices * scale
+        rotated = scaled @ R.T
+        translated = rotated + center
+        return translated  
+
+
 
 
 class Moteur:
