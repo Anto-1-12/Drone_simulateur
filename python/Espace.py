@@ -8,7 +8,7 @@ G=9.8
 P=G*0.8
 #pas sûr de ça
 
-
+import numpy as np
 
 class Obstacle:
     def __init__(self):
