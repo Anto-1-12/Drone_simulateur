@@ -28,6 +28,7 @@ while run:
 
 conn.close()
 """""
+import json
 
 def InitialisationConnection():
     import socket
@@ -53,6 +54,8 @@ def Canalouvert():
         if data :
             message = data.decode()
             print("Reçu:", message) 
+            test=json.loads(message)
+            print (test)
     except:
         print('RAS')
 
