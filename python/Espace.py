@@ -115,10 +115,13 @@ class Drone:
         for x in range(len(self.moteurs)):
             self.moteurs[x]=Moteur.__init__(self.coins[x],self.orientation)
 
-    def tickdemouvement(self):
+    def tickdemouvement(self,commande): #+interprétation commandes
+        if commande['cmd']=="avancer":
+            print('test')
         self.cravité()
         self.momentum()
         self.MinHauteur()
+
     def cravité(self):
         self.centregravité = [centre_elt + grav_elt for grav_elt, centre_elt in zip(self.Gravité, self.centregravité)]
         print(self.centregravité)

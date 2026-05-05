@@ -55,7 +55,7 @@ def Canalouvert():
             message = data.decode()
             print("Reçu:", message) 
             test=json.loads(message)
-            print (test)
+            return test
     except:
         print('RAS')
 
