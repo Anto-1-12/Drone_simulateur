@@ -104,6 +104,12 @@ class Drone:
         #   | |
         #   | |
         # 2     3
+        self.coinsnumpy = np.array([
+            [-10, 0, 10],
+            [10, 0, 10],
+            [-10, -0, 10],
+            [10, -0, 10],
+        ], dtype=float)
         self.coins=[[-10,0,10],[10,0,10],[-10,-0,10],[10,-0,10]]
         self.moteurs=[]*(4)
         for x in range(len(self.moteurs)):
@@ -145,6 +151,7 @@ class Drone:
             [s, c, 0],
             [0, 0, 1]
         ])
+    
     def rotation_matrix(self,rx, ry, rz):
         return self.rotation_z(rz) @ self.rotation_y(ry) @ self.rotation_x(rx)
 
