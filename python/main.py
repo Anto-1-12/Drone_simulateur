@@ -28,8 +28,8 @@ class Game :
                 print('tic')
                 self.sceau=time.time()
                 self.inputs()
-                self.drone.tickdemouvement()
-                Canalouvert()
+                cmdreçu=Canalouvert()
+                self.drone.tickdemouvement(cmdreçu)
                 Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
                 
         
