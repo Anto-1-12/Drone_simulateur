@@ -145,14 +145,12 @@ class Drone:
             [s, c, 0],
             [0, 0, 1]
         ])
-    
+    def rotation_matrix(self,rx, ry, rz):
+        return self.rotation_z(rz) @ self.rotation_y(ry) @ self.rotation_x(rx)
 
-    def rotation_matrix(rx, ry, rz):
-        return rot_z(rz) @ rot_y(ry) @ rot_x(rx)
-
-    def transform_cube(vertices, center, angles, scale=1.0):
+    def transform_cube(self,vertices, center, angles, scale=1.0):
         # angles = (rx, ry, rz)
-        R = rotation_matrix(*angles)
+        R = self.rotation_matrix(*angles)
         scaled = vertices * scale
         rotated = scaled @ R.T
         translated = rotated + center
