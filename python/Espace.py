@@ -87,10 +87,10 @@ class Eclairage:
 class Drone:
     #gravité à mettre ici
     Gravité=[0,
-             -1,
+             0, #-1
              0]
     #Vecteur momentum :
-    Momentum=[1,
+    Momentum=[0, #1
               0,
               0]
 
