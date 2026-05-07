@@ -87,7 +87,7 @@ class Eclairage:
 class Drone:
     #gravité à mettre ici
     Gravité=[0,
-             0, #-1
+             -1, #-1
              0]
     #Vecteur momentum :
     Momentum=[0, #1
@@ -165,6 +165,14 @@ class Drone:
         rotated = scaled @ R.T
         translated = rotated + center
         return translated  
+    
+    def getcoordonnées(self):
+        return({
+        "cmd":"sync_drone_pos",
+        "x":str(self.centregravité[1]),
+        "y":str(self.centregravité[0]),
+        "z":str(self.centregravité[2])
+    })
 
 
 
