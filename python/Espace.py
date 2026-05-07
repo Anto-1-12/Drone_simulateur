@@ -118,7 +118,14 @@ class Drone:
     def tickdemouvement(self,commande): #+interprétation commandes
         try: 
             if commande['cmd']=="avancer":
-                print('test')
+                print('avancer')
+            if commande['cmd']=="reculer":
+                print('reculer')
+            if commande['cmd']=="droite":
+                print('droite')
+            if commande['cmd']=="gauche":
+                print('gauche')
+            
         except:
             pass
         self.cravité()
