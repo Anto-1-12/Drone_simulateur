@@ -117,10 +117,13 @@ class Drone:
         try: 
             if commande['cmd']=="avancer":
                 print('avancer')
+
             if commande['cmd']=="reculer":
                 print('reculer')
+
             if commande['cmd']=="droite":
                 print('droite')
+
             if commande['cmd']=="gauche":
                 print('gauche')
             
@@ -179,8 +182,8 @@ class Drone:
     def getcoordonnées(self):
         return({
         "cmd":"sync_drone_pos",
-        "x":self.centregravité[1],
-        "y":self.centregravité[0],
+        "x":self.centregravité[0],
+        "y":self.centregravité[1],
         "z":self.centregravité[2]
     })
     def getangle(self):
