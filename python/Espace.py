@@ -96,7 +96,7 @@ class Drone:
 
     def __init__(self):
         self.centregravité=[1,1,1]  # X droite gauche, Y hauteur, Z Profondeur
-        self.orientation=[1,1,1]
+        self.orientation=[1,1,1] 
         #positions des coins dans la liste
         # 0     1
         #   | |
@@ -116,21 +116,30 @@ class Drone:
     def tickdemouvement(self,commande): #+interprétation commandes
         try: 
             if commande['cmd']=="avancer":
-                self.centregravité+=[2]
+                self.centregravité[2]+= 1
                 print('avancer')
+            elif:
+                self.orientation[2]+= 1
 
             if commande['cmd']=="reculer":
-                self.centregravité-=[2]
+                self.centregravité[2]-= 1
                 print('reculer')
-
+            elif:
+                self.orientation[2]-= 1
+            
             if commande['cmd']=="droite":
-                self.centregravité+=[0]
+                self.centregravité[0]+= 1
                 print('droite')
+            elif:
+                self.orientation[0]+= 1
 
             if commande['cmd']=="gauche":
-                self.centregravité-=[0]
+                self.centregravité[0]-= 1
                 print('gauche')
+            elif:
+                self.orientation[0]-= 1
             
+
         except:
             pass
         self.cravité()
