@@ -22,20 +22,30 @@ class Game :
     def loop(self):
         while self.run:
             if time.time()-self.sceau >= 1/60 :
+
                 #Tic de 1/60 de seconde
                 print('tic')
+
                 #Update Time
                 self.sceau=time.time()
+
                 #Tous les inputs serveur
                 self.inputs()
+
                 #Réceptions commandes client
                 cmdreçu=Canalouvert() 
+
                 #Tick de mouvement drone
                 self.drone.tickdemouvement(cmdreçu)
+
                 #Test Transmission
                 Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
-                #Transmission et synchronisation coordonnées Drone
+
+                #Synchronisation Coordonnées Drone
                 Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
+
+                #Synchronisation Angle Drone
+                #Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
                 
         
     

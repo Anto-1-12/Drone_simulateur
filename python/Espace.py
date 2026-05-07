@@ -174,9 +174,9 @@ class Drone:
     def getcoordonnées(self):
         return({
         "cmd":"sync_drone_pos",
-        "x":str(self.centregravité[1]),
-        "y":str(self.centregravité[0]),
-        "z":str(self.centregravité[2])
+        "x":self.centregravité[1],
+        "y":self.centregravité[0],
+        "z":self.centregravité[2]
     })
 
 
