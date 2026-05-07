@@ -82,6 +82,18 @@ void GameScene::update(float dt,Render& window)
     {
         sendMessage(R"({"cmd":"avancer"})");
     }
+    if (window.IsKeyPressed(65))
+    {
+        sendMessage(R"({"cmd":"gauche"})");
+    }
+    if (window.IsKeyPressed(83))
+    {
+        sendMessage(R"({"cmd":"reculer"})");
+    }
+    if (window.IsKeyPressed(68))
+    {
+        sendMessage(R"({"cmd":"droite"})");
+    }
 
     sync();
 
