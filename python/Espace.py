@@ -117,27 +117,31 @@ class Drone:
         try: 
             if commande['cmd']=="avancer":
                 self.centregravité[2]+= 1
-                print('avancer')
-            elif:
                 self.orientation[2]+= 1
+                print('avancer')
+            else:
+                self.orientation[2]= 0
 
             if commande['cmd']=="reculer":
                 self.centregravité[2]-= 1
-                print('reculer')
-            elif:
                 self.orientation[2]-= 1
+                print('reculer')
+            else:
+                self.orientation[2]= 0
             
             if commande['cmd']=="droite":
                 self.centregravité[0]+= 1
+                self.orientation[0]+= 1
                 print('droite')
             elif:
-                self.orientation[0]+= 1
+                self.orientation[0]= 0
 
             if commande['cmd']=="gauche":
                 self.centregravité[0]-= 1
+                self.orientation[0]-= 1
                 print('gauche')
             elif:
-                self.orientation[0]-= 1
+                self.orientation[0]= 0
             
 
         except:
