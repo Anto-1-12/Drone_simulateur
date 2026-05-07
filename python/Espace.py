@@ -95,8 +95,10 @@ class Drone:
               0]
 
     def __init__(self):
+
         self.centregravité=[1,1,1]  # X droite gauche, Y hauteur, Z Profondeur
-        self.orientation=[1,1,1]
+
+        self.orientation=[0,0,1]    # X Lacet, Y Tangage, Z Roulis https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
         #positions des coins dans la liste
         # 0     1
         #   | |
@@ -109,6 +111,7 @@ class Drone:
             [10, -0, 10],
         ], dtype=float)
         self.coins=[[-10,0,10],[10,0,10],[-10,-0,10],[10,-0,10]]
+
         self.moteurs=[]*(4)
         for x in range(len(self.moteurs)):
             self.moteurs[x]=Moteur.__init__(self.coins[x],self.orientation)
@@ -188,10 +191,10 @@ class Drone:
     })
     def getangle(self):
         return({
-        "cmd":"sync_drone_pos",
-        "x":self.centregravité[0],
-        "y":self.centregravité[1],
-        "z":self.centregravité[2]
+        "cmd":"sync_drone_ang",
+        "x":self.orientation[0],
+        "y":self.orientation[1],
+        "z":self.orientation[2]
     })
 
 
@@ -204,7 +207,7 @@ class Moteur:
         self.position=position
         self.orientation=orientation
 
-    def ON(Haut,Devant,Derrière,Gauche,Droite):
+    def ON(Force):
         pass
 
     def update_position_moteurs():

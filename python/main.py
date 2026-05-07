@@ -8,19 +8,28 @@ class Camera:
         pass
 
 class Game :
+
     sceau=time.time()
+
     tpsmax=100
+
     def __init__(self):
+
         print("Lancement simulation")
+
         self.drone=Drone()
+
         InitialisationConnection()
+
         self.run=True
 
     def inputs(self):
         pass
 
     def loop(self):
+
         while self.run:
+
             if time.time()-self.sceau >= 1/60 :
 
                 #Tic de 1/60 de seconde
@@ -47,8 +56,6 @@ class Game :
                 #Synchronisation Angle Drone
                 #Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
                 
-        
-    
 game = Game()
 game.loop()
 FermetureCanal()

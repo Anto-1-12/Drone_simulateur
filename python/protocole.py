@@ -5,6 +5,12 @@ commande_serverclient = [
         "y":1212231,
         "z":121223
     }
+    {
+        "cmd":"sync_drone_ang",
+        "x":0,
+        "y":0,
+        "z":1
+    }
 ]
 
 commande_clientserver = [
