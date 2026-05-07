@@ -29,10 +29,7 @@ class Game :
                 #Tous les inputs serveur
                 self.inputs()
                 #Réceptions commandes client
-                try : 
-                    cmdreçu=Canalouvert() 
-                except:
-                    pass
+                cmdreçu=Canalouvert() 
                 #Tick de mouvement drone
                 self.drone.tickdemouvement(cmdreçu)
                 #Test Transmission
