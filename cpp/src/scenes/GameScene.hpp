@@ -24,6 +24,8 @@ class GameScene : public Scene
         Transform cube;
         Transform drone;
 
+        std::string buffer_accum;
+
     public:
         GameScene();
         ~GameScene();

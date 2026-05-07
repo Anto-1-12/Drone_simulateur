@@ -15,6 +15,9 @@ GameScene::GameScene() :
         return;
     }
 
+    u_long mode = 1; // 1 = non-bloquant
+    ioctlsocket(sock, FIONBIO, &mode);
+
     sockaddr_in server;
     memset(&server, 0, sizeof(server));
 
@@ -30,6 +33,7 @@ GameScene::GameScene() :
     } else {
         std::cout << "Connecté au serveur\n";
     }
+
 }
     
 GameScene::~GameScene()
@@ -100,24 +104,43 @@ void GameScene::sendMessage(std::string command)
 }
 
 void GameScene::sync()
-{
+{   
+
     char buffer[1024] = {0};
     int bytes = recv(sock, buffer, 1024, 0);
 
     if (bytes > 0)
     {
-        std::string data(buffer);
-        json j = json::parse(data);
-        std::string cmd = j["cmd"];
-        if (cmd == "sync_drone_pos")
-        {
-            drone.position.x = j["x"];
-            drone.position.y = j["y"];
-            drone.position.z = j["z"];
-        }
-        else
-        {
-            std::cout<<"test"<<std::endl;
+        std::string data(buffer, bytes);
+        buffer_accum += data;
+
+        size_t pos;
+
+        while ((pos = buffer_accum.find('\n')) != std::string::npos) {
+            std::string line = buffer_accum.substr(0, pos);
+            buffer_accum.erase(0, pos + 1);
+
+
+            if (line.empty()) continue;
+
+            try {
+                json j = json::parse(line);
+                
+                std::string cmd = j["cmd"];
+                if (cmd == "sync_drone_pos")
+                {
+                    drone.position.x = j["x"];
+                    drone.position.y = j["y"];
+                    drone.position.z = j["z"];
+                }
+                else
+                {
+                    std::cout<<cmd<<std::endl;
+                }
+            }
+            catch (const std::exception& e) {
+                std::cerr << "Parse error: " << e.what() << std::endl;
+            }
         }
     }
 }
