@@ -4,7 +4,7 @@ commande_serverclient = [
         "x":232323,
         "y":1212231,
         "z":121223
-    }
+    },
     {
         "cmd":"sync_drone_ang",
         "x":0,
