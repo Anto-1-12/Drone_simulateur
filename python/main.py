@@ -35,7 +35,7 @@ class Game :
                 #Test Transmission
                 Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
                 #Transmission et synchronisation coordonnées Drone
-                Transmission(json.dumps(Drone.getcoordonnées())+"\n")
+                Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
                 
         
     
