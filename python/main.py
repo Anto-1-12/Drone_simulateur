@@ -17,9 +17,6 @@ class Game :
         self.run=True
 
     def inputs(self):
-        #reçoit click
-        #if reçoit click :
-        
         pass
 
     def loop(self):
@@ -29,9 +26,14 @@ class Game :
                 print('tic')
                 #Update Time
                 self.sceau=time.time()
-                #Tous les inputs
+                #Tous les inputs serveur
                 self.inputs()
-                cmdreçu=Canalouvert()
+                #Réceptions commandes client
+                try : 
+                    cmdreçu=Canalouvert() 
+                except:
+                    pass
+                #Tick de mouvement drone
                 self.drone.tickdemouvement(cmdreçu)
                 #Test Transmission
                 Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
