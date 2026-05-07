@@ -87,7 +87,7 @@ class Eclairage:
 class Drone:
     #gravité à mettre ici
     Gravité=[0,
-             -1, #-1
+             -0.1, #-1
              0]
     #Vecteur momentum :
     Momentum=[0, #1
@@ -95,10 +95,8 @@ class Drone:
               0]
 
     def __init__(self):
-        self.centregravité=[1,1,1]
-        self.orientation=[[1,0,0],
-                          [0,1,0],
-                          [0,0,1]]
+        self.centregravité=[1,1,1]  # X droite gauche, Y hauteur, Z Profondeur
+        self.orientation=[1,1,1]
         #positions des coins dans la liste
         # 0     1
         #   | |
@@ -120,12 +118,15 @@ class Drone:
             if commande['cmd']=="avancer":
                 self.centregravité=[x+1,y,z]
                 print('avancer')
+
             if commande['cmd']=="reculer":
                 self.centregravité=[x-1,y,z]
                 print('reculer')
+
             if commande['cmd']=="droite":
                 self.centregravité=[x,y+1,z]
                 print('droite')
+
             if commande['cmd']=="gauche":
                 self.centregravité=[x,y+1,z]
                 print('gauche')
@@ -185,9 +186,16 @@ class Drone:
     def getcoordonnées(self):
         return({
         "cmd":"sync_drone_pos",
-        "x":str(self.centregravité[1]),
-        "y":str(self.centregravité[0]),
-        "z":str(self.centregravité[2])
+        "x":self.centregravité[0],
+        "y":self.centregravité[1],
+        "z":self.centregravité[2]
+    })
+    def getangle(self):
+        return({
+        "cmd":"sync_drone_pos",
+        "x":self.centregravité[0],
+        "y":self.centregravité[1],
+        "z":self.centregravité[2]
     })
 
 

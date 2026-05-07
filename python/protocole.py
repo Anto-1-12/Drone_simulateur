@@ -20,4 +20,7 @@ commande_clientserver = [
     {
         "cmd":"gauche"
     }
+    {
+        "cmd":"hover"
+    }
 ]
