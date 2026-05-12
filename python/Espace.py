@@ -160,7 +160,7 @@ class Drone:
 
     def MinHauteur(self):
         if self.centregravité[1]<0:
-            self.centregravité[1] += 10 
+            self.centregravité[1] = 0 
 
     #Ci-dessous : fonction d'angles
     def rotation_x(angle):
