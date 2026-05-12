@@ -42,7 +42,8 @@ class Game :
                 self.inputs()
 
                 #Réceptions commandes client
-                cmdreçu=Canalouvert() 
+                cmdreçu=Canalouvert()
+                print(cmdreçu) 
 
                 #Tick de mouvement drone
                 self.drone.tickdemouvement(cmdreçu)
