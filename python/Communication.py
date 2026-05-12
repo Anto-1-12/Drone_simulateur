@@ -53,9 +53,15 @@ def Canalouvert():
         data = conn.recv(1024)
         if data :
             message = data.decode()
-            print("Reçu:", message) 
-            test=json.loads(message)
-            return test
+            print("Reçu:", message)
+            # raw = aide IA
+            """
+            {"a": 1, "b": 2}
+            {"a": 3, "b": 4}
+            """
+            liste = [json.loads(line) for line in message.splitlines() if line.strip()]
+            #test=json.loads(message)
+            return liste
     except:
         print('RAS')
 

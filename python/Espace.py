@@ -116,37 +116,36 @@ class Drone:
         for x in range(len(self.moteurs)):
             self.moteurs[x]=Moteur.__init__(self.coins[x],self.orientation)
 
-    def tickdemouvement(self,commande): #+interprétation commandes
-        try: 
-            if commande['cmd']=="avancer":
+    def tickdemouvement(self,commandes): #+interprétation commandes
+        for Ordre in commandes:
+            if Ordre['cmd']=="avancer":
                 self.centregravité[2]+= 1
                 self.orientation[2]= -0.15
                 print('avancer')
             else:
                 self.orientation[2]= 0
 
-            if commande['cmd']=="reculer":
+            if Ordre['cmd']=="reculer":
                 self.centregravité[2]-= 1
                 self.orientation[2]= 0.15
                 print('reculer')
             else:
                 self.orientation[2]= 0
                 
-            if commande['cmd']=="droite":
+            if Ordre['cmd']=="droite":
                 self.centregravité[0]+= 1
                 self.orientation[0]= -0.15
                 print('droite')
             else:
                 self.orientation[0]= 0
 
-            if commande['cmd']=="gauche":
+            if Ordre['cmd']=="gauche":
                 self.centregravité[0]-= 1
                 self.orientation[0]= 0.15
                 print('gauche')
             else:
                 self.orientation[0]= 0
-        except:
-            pass
+
         self.cravité()
         self.momentum()
         self.MinHauteur()
