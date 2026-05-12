@@ -28,7 +28,7 @@ commande_clientserver = [
     },
     {
         "cmd":"hover"
-    }
+    },
     {
         "cmd":"vol"
     }
