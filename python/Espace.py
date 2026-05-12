@@ -118,34 +118,33 @@ class Drone:
 
     def tickdemouvement(self,commande): #+interprétation commandes
         try: 
-            for command in commande:
-                if command['cmd']=="avancer":
-                    self.centregravité[2]+= 1
-                    self.orientation[2]= -0.15
-                    print('avancer')
-                else:
-                    self.orientation[2]= 0
+            if commande['cmd']=="avancer":
+                self.centregravité[2]+= 1
+                self.orientation[2]= -0.15
+                print('avancer')
+            else:
+                self.orientation[2]= 0
 
-                if command['cmd']=="reculer":
-                    self.centregravité[2]-= 1
-                    self.orientation[2]= 0.15
-                    print('reculer')
-                else:
-                    self.orientation[2]= 0
+            if commande['cmd']=="reculer":
+                self.centregravité[2]-= 1
+                self.orientation[2]= 0.15
+                print('reculer')
+            else:
+                self.orientation[2]= 0
                 
-                if command['cmd']=="droite":
-                    self.centregravité[0]+= 1
-                    self.orientation[0]= -0.15
-                    print('droite')
-                else:
-                    self.orientation[0]= 0
+            if commande['cmd']=="droite":
+                self.centregravité[0]+= 1
+                self.orientation[0]= -0.15
+                print('droite')
+            else:
+                self.orientation[0]= 0
 
-                if command['cmd']=="gauche":
-                    self.centregravité[0]-= 1
-                    self.orientation[0]= 0.15
-                    print('gauche')
-                else:
-                    self.orientation[0]= 0
+            if commande['cmd']=="gauche":
+                self.centregravité[0]-= 1
+                self.orientation[0]= 0.15
+                print('gauche')
+            else:
+                self.orientation[0]= 0
         except:
             pass
         self.cravité()
