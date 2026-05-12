@@ -59,6 +59,7 @@ def Canalouvert():
             {"a": 1, "b": 2}
             {"a": 3, "b": 4}
             """
+            liste = []
             liste = [json.loads(line) for line in message.splitlines() if line.strip()]
             #test=json.loads(message)
             return liste
