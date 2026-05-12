@@ -6,6 +6,14 @@ GameScene::GameScene() :
     wantToChange(false),
     is_init(false)
 {
+
+    //Lancement du server
+
+    system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py");
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
+    //Conection au server
+
     WSADATA wsa;
     WSAStartup(MAKEWORD(2,2), &wsa);
 
@@ -28,12 +36,26 @@ GameScene::GameScene() :
     server.sin_port = htons(5000); // même port que Python
     inet_pton(AF_INET, "127.0.0.1", &server.sin_addr); // IP du serveur Python
 
-    if (connect(sock, (sockaddr*)&server, sizeof(server)) < 0) {
-        std::cerr << "Erreur de connexion\n";
-    } else {
-        std::cout << "Connecté au serveur\n";
+    bool connected = false;
+
+    while (!connected)
+    {
+        int result = connect(sock, (sockaddr*)&server, sizeof(server));
+
+        if (result == 0){
+            connected = true;
+            std::cout << "Connecté au serveur\n";
+            break;
+        }else {
+            int err = WSAGetLastError();
+
+            if (err == WSAEISCONN) {
+                connected = true;
+            }
     }
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
 }
     
 GameScene::~GameScene()
@@ -46,10 +68,9 @@ void GameScene::draw(Render& window)
 {
     if (is_init == false)
     {
-
-        window.ClearMesh();
-        window.ClearObject();
         window.Clear2DObject();
+        window.ClearObject();
+        window.ClearMesh();
 
         cube.position = glm::vec3(-4,-3,0);
         cube.rotation = glm::vec3(0,0,0);

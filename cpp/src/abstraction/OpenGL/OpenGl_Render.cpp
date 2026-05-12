@@ -51,6 +51,7 @@ void OpenGLRenderer::InitWindow()
     
     //activer la profondeur
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 
     //clear color = noire
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -174,7 +175,7 @@ void OpenGLRenderer::InitWindow()
         glm::radians(45.0f), // FOV
         (float) size_screen.x / size_screen.y,     // aspect ratio
         0.1f,                // near
-        100.0f               // far
+        1000.0f               // far
     );
 
     projection_2D = glm::ortho(0.0f, (float) size_screen.x,(float) size_screen.y, 0.0f);
@@ -189,47 +190,51 @@ void OpenGLRenderer::Init()
 void OpenGLRenderer::Update()
 {
     glUseProgram(shaderProgram);
+
+    glUniform1f(nearLoc, 0.1f);
+    glUniform1f(farLoc, 1000.0f);
+
+    //matrice pour avoir les infos de la camera
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+    //matrice de projection
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+    
+    
     for (int i = 0; i < all_object.size(); i++)
     {
-        glBindVertexArray(all_object[i].mesh->VAO);
+        Mesh& mesh = all_mesh[all_2D_object[i].mesh_indice];
+        glBindVertexArray(mesh.VAO);
 
         //passer les donner au shader pour transformer le model et l'envoyer dans l'espace
         //matrice pour tourner, bouger le model
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(computeModelMatrix(*all_object[i].transform)));
 
-        //matrice pour avoir les infos de la camera
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glDrawArrays(GL_TRIANGLES, 0, mesh.vertexCount);
 
-        //matrice de projection
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-
-        glDrawArrays(GL_TRIANGLES, 0, all_object[i].mesh->vertexCount);
-
-        glUniform1f(nearLoc, 0.1f);
-        glUniform1f(farLoc, 100.0f);
     }
 
     glUseProgram(shaderProgram2D);
+    glUniform1i(glGetUniformLocation(shaderProgram2D, "texture1"), 0);
     for (int a = 0; a < all_2D_object.size(); a++)
     {
+        Mesh& mesh = all_mesh[all_2D_object[a].mesh_indice];
+        glBindVertexArray(mesh.VAO);
+
         //                  passer la texture au shader
         //-----------------------------------------------------------------
-        glUniform1i(glGetUniformLocation(shaderProgram2D, "texture1"), 0);
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, all_2D_object[a].mesh->texture);
+        glBindTexture(GL_TEXTURE_2D, mesh.texture);
 
         //-----------------------------------------------------------------
-
-        glBindVertexArray(all_2D_object[a].mesh->VAO);
 
         glm::mat4 model = computeModelMatrix(*all_2D_object[a].transform);
 
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram2D, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram2D, "projection"), 1, GL_FALSE, glm::value_ptr(projection_2D));
 
-        glDrawArrays(GL_TRIANGLES, 0, all_2D_object[a].mesh->vertexCount);
+        glDrawArrays(GL_TRIANGLES, 0, mesh.vertexCount);
     }
 
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -255,7 +260,6 @@ void OpenGLRenderer::Events()
 
 void OpenGLRenderer::AddMesh(std::string name, std::string path, std::string texturePath)
 {
-
     //verifier si le nom n'et pas deja pris
     for (int i = 0; i < all_mesh.size();i++)
     {
@@ -353,7 +357,7 @@ void OpenGLRenderer::AddObject(std::string mesh_name, Transform& transform)
     {
         if (all_mesh[i].name == mesh_name)
         {
-            all_object.push_back(Object{&all_mesh[i],&transform});
+            all_object.push_back(Object{i,&transform});
             is_init = true;
         }
     }
@@ -371,7 +375,7 @@ void OpenGLRenderer::Add2DObject(std::string mesh_name, Transform& transform)
     {
         if (all_mesh[i].name == mesh_name)
         {
-            all_2D_object.push_back(Object{&all_mesh[i],&transform});
+            all_2D_object.push_back(Object{i,&transform});
             is_init = true;
         }
     }
@@ -386,7 +390,7 @@ void OpenGLRenderer::SetView(glm::vec3 position, glm::vec3 vecDirection)
 {
     view = glm::lookAt(
         position, // position caméra
-        vecDirection, // cible -> vec direction
+        position + vecDirection, // cible -> vec direction
         glm::vec3(0.0f, 1.0f, 0.0f)  // up
     );
 }
@@ -403,7 +407,7 @@ void OpenGLRenderer::ClearObject()
 
 void OpenGLRenderer::Clear2DObject()
 {
-    std::vector<Object>().swap(all_2D_object);
+    all_2D_object.clear();
 }
 
 glm::vec2 OpenGLRenderer::getMousePos()

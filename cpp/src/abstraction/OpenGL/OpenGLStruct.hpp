@@ -15,7 +15,7 @@ struct Mesh {
 };
 
 struct Object {
-    Mesh* mesh;
+    int mesh_indice;
     Transform* transform;
 };
 
