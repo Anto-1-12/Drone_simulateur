@@ -81,12 +81,13 @@ void GameScene::draw(Render& window)
         drone.position = glm::vec3(0,0,0);
         drone.rotation = glm::vec3(0,0,0);
         drone.scale = glm::vec3(0.05,0.05,0.05);
-
         window.AddMesh("drone","assets/models/drone.obj","assets/textures/texture.png");
         window.AddObject("drone",drone);
         
         is_init = true;
     }
+    
+    window.SetView(drone.position-glm::vec3(0,0,10),glm::vec3(0,0,1));
 }
 
 void GameScene::event()
