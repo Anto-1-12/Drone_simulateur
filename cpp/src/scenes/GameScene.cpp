@@ -72,7 +72,7 @@ void GameScene::draw(Render& window)
         window.ClearObject();
         window.ClearMesh();
 
-        cube.position = glm::vec3(-4,-3,0);
+        cube.position = glm::vec3(-4,0,0);
         cube.rotation = glm::vec3(0,0,0);
         cube.scale = glm::vec3(2.5,2.5,2.5);
         window.AddMesh("test","assets/models/tourEiffel.obj","assets/textures/texture.png");
@@ -87,7 +87,7 @@ void GameScene::draw(Render& window)
         is_init = true;
     }
     
-    window.SetView(drone.position-glm::vec3(0,0,10),glm::vec3(0,0,1));
+    window.SetView(drone.position+glm::vec3(0,5,10),glm::vec3(0,-5,-10));
 }
 
 void GameScene::event()
