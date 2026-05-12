@@ -49,7 +49,7 @@ class Game :
                 self.drone.tickdemouvement(cmdreçu)
 
                 #Test Transmission
-                Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
+                #Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
 
                 #Synchronisation Coordonnées Drone
                 Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
