@@ -87,10 +87,10 @@ class Eclairage:
 class Drone:
     #gravité à mettre ici
     Gravité=[0,
-             -0.1, #-1
+             -7.84, #-1 pour test, -7.84 pour un drone de 800 grammes
              0]
     #Vecteur momentum :
-    Momentum=[0, #1
+    Momentum=[0, #1 pour test
               0,
               0]
 
@@ -98,7 +98,8 @@ class Drone:
 
         self.centregravité=[1,1,1]  # X droite gauche, Y hauteur, Z Profondeur
 
-        self.orientation=[0,0,0]    # X Lacet, Y Tangage, Z Roulis https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
+        self.orientation=[0,0,1]    # X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
+
         #positions des coins dans la liste
         # 0     1
         #   | |
@@ -163,22 +164,26 @@ class Drone:
             self.centregravité[1] = 0 
 
     #Ci-dessous : fonction d'angles
-    def rotation_x(angle):
-        c, s = np.cos(angle), np.sin(angle)
+
+    def rotation_x(self,angle):
+        c = round(np.cos(angle),12)
+        s = round(np.sin(angle),12)
         return np.array([
             [1, 0, 0],
             [0, c,-s],
             [0, s, c]
         ])
-    def rotation_y(angle):
-        c, s = np.cos(angle), np.sin(angle)
+    def rotation_y(self,angle):
+        c = round(np.cos(angle),12)
+        s = round(np.sin(angle),12)
         return np.array([
             [ c, 0, s],
             [ 0, 1, 0],
             [-s, 0, c]
         ])
-    def rotation_z(angle):
-        c, s = np.cos(angle), np.sin(angle)
+    def rotation_z(self,angle):
+        c = round(np.cos(angle),12)
+        s = round(np.sin(angle),12)
         return np.array([
             [c,-s, 0],
             [s, c, 0],
@@ -186,15 +191,21 @@ class Drone:
         ])
     
     def rotation_matrix(self,rx, ry, rz):
+        #conversion degrés en radians 
+        rx=np.radians(rx)
+        ry=np.radians(ry)
+        rz=np.radians(rz)
         return self.rotation_z(rz) @ self.rotation_y(ry) @ self.rotation_x(rx)
+    
+    def orientation(self,angles): #
+        # angles de rotation autour des axes = (rx, ry, rz)
+        Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
+        print(Rotation)
+        résultat=Rotation@self.orientation
+        print("résultat")
+        print(résultat)
+        self.orientation=résultat
 
-    def transform_cube(self,vertices, center, angles, scale=1.0):
-        # angles = (rx, ry, rz)
-        R = self.rotation_matrix(*angles)
-        scaled = vertices * scale
-        rotated = scaled @ R.T
-        translated = rotated + center
-        return translated  
     
     def getcoordonnées(self):
         return({
@@ -213,19 +224,23 @@ class Drone:
 
 
 
-
 class Moteur:
     #N=4?
     def __init__(self,position,orientation):
         self.vecteurdirection=[]
         self.position=position
         self.orientation=orientation
+        self.force=0 # en pourcent ex: 0.8
 
-    def ON(Force):
-        pass
+    def ON(self,Force):
+        self.force=Force
+
+    def OFF(self):
+        self.force=0
 
     def update_position_moteurs():
         pass
+
 
 #tests
 D=Drone()
