@@ -19,7 +19,21 @@ class Game :
 
         self.drone=Drone()
 
-        InitialisationConnection()
+        #sélection du mode de contrôle
+        try :
+
+            mode=str(input('Voulez vous lancer le mode automatique ? Répondre Y ou N'))
+
+            if mode=='Y':
+                print('test mode automatique')
+            elif mode=='N':
+                InitialisationConnection()
+
+        except:
+
+            print('erreur de mode de contrôle')
+            print('mode manuel par défaut')
+            InitialisationConnection()
 
         self.run=True
 
