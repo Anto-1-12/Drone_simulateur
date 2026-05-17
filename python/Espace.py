@@ -206,7 +206,6 @@ class Drone:
         print(résultat)
         self.orientation=résultat
 
-    
     def getcoordonnées(self):
         return({
         "cmd":"sync_drone_pos",
@@ -225,9 +224,8 @@ class Drone:
 
 
 class Moteur:
-    #N=4?
+    
     def __init__(self,position,orientation):
-        self.vecteurdirection=[]
         self.position=position
         self.orientation=orientation
         self.force=0 # en pourcent ex: 0.8
