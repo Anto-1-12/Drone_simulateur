@@ -10,7 +10,7 @@ class Camera:
 class Game :
 
     sceau=time.time()
-
+    
     tpsmax=100
 
     def __init__(self):
@@ -26,53 +26,74 @@ class Game :
 
             if mode=='Y':
                 print('test mode automatique')
+                self.mode="Auto"
             elif mode=='N':
+                print('test mode manuel')
                 InitialisationConnection()
+                self.mode="Manuel"
 
         except:
 
             print('erreur de mode de contrôle')
             print('mode manuel par défaut')
             InitialisationConnection()
+            self.mode="Manuel"
 
         self.run=True
 
-    def inputs(self):
-        pass
-
     def loop(self):
 
-        while self.run:
+        #code du mode auto
+        if self.mode=='Auto':
+            while self.run:
+                print("Mode auto")
+                if time.time()-self.sceau >= 1/60 :
+                    #Tic de 1/60 de seconde
+                    print('tic')
 
-            if time.time()-self.sceau >= 1/60 :
+                    #Update Time
+                    self.sceau=time.time()
 
-                #Tic de 1/60 de seconde
-                print('tic')
+                    #ici commandes auto
 
-                #Update Time
-                self.sceau=time.time()
+                    #Tick de mouvement drone
+                    self.drone.tickdemouvement()
 
-                #Tous les inputs serveur
-                self.inputs()
+                    #Synchronisation Coordonnées Drone pour visualisation
+                    Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
 
-                #Réceptions commandes client
-                cmdreçu=Canalouvert()
-                print(cmdreçu) 
+                    #Synchronisation Angle Drone pour visualisation
+                    #Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
 
-                #Tick de mouvement drone
-                self.drone.tickdemouvement(cmdreçu)
+        #code du mode manuel
+        else:
+            while self.run:
 
-                #Test Transmission
-                #Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
+                if time.time()-self.sceau >= 1/60 :
 
-                #Synchronisation Coordonnées Drone
-                Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
+                    #Tic de 1/60 de seconde
+                    print('tic')
 
-                #Synchronisation Angle Drone
-                #Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
-                
+                    #Update Time
+                    self.sceau=time.time()
+
+                    #Réceptions commandes client
+                    cmdreçu=Canalouvert()
+                    print(cmdreçu) 
+
+                    #Tick de mouvement drone
+                    self.drone.tickdemouvement(cmdreçu)
+
+                    #Test Transmission
+                    #Transmission(json.dumps({"cmd":"Hellow"})+ "\n")
+
+                    #Synchronisation Coordonnées Drone
+                    Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
+
+                    #Synchronisation Angle Drone
+                    #Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
+                    
 game = Game()
 game.loop()
 FermetureCanal()
 print("Fermeture Simulation")
-input()
