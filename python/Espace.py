@@ -89,30 +89,28 @@ class Drone:
     Gravité=[0,
              -7.84, #-1 pour test, -7.84 pour un drone de 800 grammes
              0]
-    #Vecteur momentum :
-    Momentum=[0, #1 pour test
-              0,
-              0]
 
     def __init__(self):
 
-        self.centregravité=[1,1,1]  # X droite gauche, Y hauteur, Z Profondeur
+        self.centregravité=[1,1,1]  # coordonnées X droite gauche, Y hauteur, Z Profondeur
 
-        self.orientation=[0,0,1]    # X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
+        #Vecteur momentum :
+        Momentum=[0, #1 pour test
+                0,
+                0]
+
+        self.orientation=[0,0,1]    #vecteur orientation X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
+
+        self.orientationmoteur=[0,1,0] 
 
         #positions des coins dans la liste
         # 0     1
         #   | |
         #   | |
         # 2     3
-        self.coinsnumpy = np.array([
-            [-10, 0, 10],
-            [10, 0, 10],
-            [-10, -0, 10],
-            [10, -0, 10],
-        ], dtype=float)
-        self.coins=[[-10,0,10],[10,0,10],[-10,-0,10],[10,-0,10]]
 
+
+        self.coins=[[-10,0,10],[10,0,10],[-10,-0,10],[10,-0,10]]
         self.moteurs=[]*(4)
         for x in range(len(self.moteurs)):
             self.moteurs[x]=Moteur.__init__(self.coins[x],self.orientation)
@@ -206,6 +204,7 @@ class Drone:
         print(résultat)
         self.orientation=résultat
 
+    #fonctions de partage des données
     def getcoordonnées(self):
         return({
         "cmd":"sync_drone_pos",
