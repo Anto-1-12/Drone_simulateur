@@ -202,6 +202,7 @@ class Drone:
         matricerotation=self.rotation_matrix(self.orientationdegrés[0],self.orientationdegrés[1],self.orientationdegrés[2])
         self.v_initial=[0,0,1]
         v_direction=matricerotation @ self.v_initial
+        v_direction=v_direction.tolist()
         self.Momentum=[v_direction[0]*self.puissance,v_direction[0]*self.puissance,v_direction[0]*self.puissance]
 
     #Ci-dessous : fonction d'angles
