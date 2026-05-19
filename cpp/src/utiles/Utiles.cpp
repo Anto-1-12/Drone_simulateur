@@ -63,9 +63,9 @@ bool loadObjWithTiny(const std::string& filename, std::vector<Vertex>& outVertic
 //par chatgpt
 glm::mat4 computeModelMatrix(const Transform& t) {
     glm::mat4 m = glm::translate(glm::mat4(1.0f), t.position);
-    m = glm::rotate(m, glm::radians(t.rotation.x), glm::vec3(1,0,0));
-    m = glm::rotate(m, glm::radians(t.rotation.y), glm::vec3(0,1,0));
-    m = glm::rotate(m, glm::radians(t.rotation.z), glm::vec3(0,0,1));
+    m = glm::rotate(m, t.rotation.x, glm::vec3(1,0,0));
+    m = glm::rotate(m, t.rotation.y, glm::vec3(0,1,0));
+    m = glm::rotate(m, t.rotation.z, glm::vec3(0,0,1));
     m = glm::scale(m, t.scale);
     return m;
 }

@@ -9,9 +9,9 @@ GameScene::GameScene() :
     yawn(0.0f)
 {
 
-    //Lancement du server//
+    //Lancement du server
 
-    system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py N");
+    //system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py N");
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     //Conection au server
@@ -85,6 +85,12 @@ void GameScene::draw(Render& window)
         drone.scale = glm::vec3(0.05,0.05,0.05);
         window.AddMesh("drone","assets/models/drone.obj","assets/textures/tkt.png");
         window.AddObject("drone",drone);
+
+        grond.position = glm::vec3(1,0,1);
+        grond.rotation = glm::vec3(0,0,0);
+        grond.scale = glm::vec3(1,0.01,1);
+        window.AddMesh("grond","assets/models/block.obj","assets/textures/tkt.png");
+        window.AddObject("grond",grond);
         
         is_init = true;
     }
@@ -97,7 +103,7 @@ void GameScene::event()
 
 void GameScene::update(float dt,Render& window)
 {
-    cube.rotation.y += 20 * dt;
+    cube.rotation.y += dt;
     
     bool debug = false;
     if (window.IsKeyPressed(73))
@@ -286,8 +292,26 @@ void GameScene::sync(bool debug)
                 }
                 else if (cmd == "sync_drone_ang")
                 {
-                    drone.rotation.x = glm::degrees(std::atan2(double (j["z"]), double (j["x"])));
-                    drone.rotation.y = glm::degrees(std::asin(double (j["y"])));
+                    glm::vec3 dir = glm::normalize(glm::vec3(j["x"], j["y"], j["z"]));
+                    glm::vec3 dir2 = glm::normalize(glm::vec3(j["x2"], j["y2"], j["z2"]));
+
+                    glm::vec3 forward = dir;        // Vecteur avant
+                    glm::vec3 right = dir2;         // Vecteur droite
+
+                    // Calculer le vecteur up manquant
+                    glm::vec3 up = glm::cross(right, forward);
+
+                    // Construire la matrice de rotation
+                    glm::mat3 rotMatrix = glm::mat3(right, up, -forward);
+
+                    // Extraire les angles d'Euler (convention ZYX)
+                    glm::vec3 eulerAngles = glm::eulerAngles(glm::quat_cast(rotMatrix));
+
+                    // Calculer les angles
+                    drone.rotation.x = eulerAngles.x;
+                    drone.rotation.y = eulerAngles.y;
+                    drone.rotation.z = eulerAngles.z;
+
                     if(debug)
                     {
                         std::cout<<j<<std::endl;

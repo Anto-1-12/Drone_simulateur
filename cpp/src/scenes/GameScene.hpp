@@ -30,6 +30,7 @@ class GameScene : public Scene
 
         Transform cube;
         Transform drone;
+        Transform grond;
 
         std::string buffer_accum;
 
