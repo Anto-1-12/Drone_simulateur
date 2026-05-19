@@ -183,7 +183,7 @@ class Drone:
             self.centregravité[1] = 0 
 
     def poussée(self):
-        self.Momentum=self.puissance*np.array(self.orientationmoteur)+self.Momentum
+        self.Momentum=self.puissance*np.array(self.orientationmoteur)
 
     #Ci-dessous : fonction d'angles
 
