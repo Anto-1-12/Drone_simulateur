@@ -27,10 +27,10 @@ commande_clientserver = [
         "cmd":"tourneràgauche"
     },
     {
-        "cmd":"alleràdroite"
+        "cmd":"rolldroite"
     },
     {
-        "cmd":"alleràgauche"
+        "cmd":"rollgauche"
     },
     {
         "cmd":"hover"
