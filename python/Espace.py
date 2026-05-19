@@ -213,7 +213,7 @@ class Drone:
         print("v_direction")
         print(v_direction)
         force=round(self.puissance*self.pourcentmoteur/100,2)
-        self.Momentum=[v_direction[0]*self.puissance,v_direction[0]*self.puissance,v_direction[0]*self.puissance]
+        self.Momentum=[v_direction[0]*force,v_direction[0]*force,v_direction[0]*force]
 
     #Ci-dessous : fonction d'angles
 
