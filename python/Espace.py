@@ -126,42 +126,42 @@ class Drone:
             #Tangage
             if Ordre['cmd']=="avancer":
                 if self.orientationdegrés[0]<360:
-                    self.orientationdegrés+=1
+                    self.orientationdegrés[0]+=1
                 else: 
-                    self.orientationdegrés=0
+                    self.orientationdegrés[0]=0
                 print('avancer')
             if Ordre['cmd']=="reculer":
                 if self.orientationdegrés[0]>0 :
-                    self.orientationdegrés-=1
+                    self.orientationdegrés[0]-=1
                 else: 
-                    self.orientationdegrés=360
+                    self.orientationdegrés[0]=360
                 
                 print('reculer')
 
             #Lacet
             if Ordre['cmd']=="tourneràdroite":
                 if self.orientationdegrés[1]<360:
-                    self.orientationdegrés+=1
+                    self.orientationdegrés[1]+=1
                 else: 
-                    self.orientationdegrés=0
+                    self.orientationdegrés[1]=0
                 print('tourneràdroite')
             if Ordre['cmd']=="tourneràgauche":
                 if self.orientationdegrés[1]>0 :
-                    self.orientationdegrés-=1
+                    self.orientationdegrés[1]-=1
                 else: 
-                    self.orientationdegrés=360
+                    self.orientationdegrés[1]=360
                 print('tourneràgauche')
 
             #Roulis
             if Ordre['cmd']=="rolldroite":
                 if self.orientationdegrés[2]<360:
-                    self.orientationdegrés+=1
+                    self.orientationdegrés[2]+=1
                 print('rolldroite')
             if Ordre['cmd']=="rollgauche":
                 if self.orientationdegrés[2]>0 :
-                    self.orientationdegrés-=1
+                    self.orientationdegrés[2]-=1
                 else: 
-                    self.orientationdegrés=360
+                    self.orientationdegrés[2]=360
                 print('rollgauche')
 
             #gestionpuissance
