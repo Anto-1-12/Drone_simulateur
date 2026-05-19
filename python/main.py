@@ -2,6 +2,7 @@ from Espace import Drone
 from Communication import InitialisationConnection,Canalouvert,Transmission,FermetureCanal
 import time
 import json
+import sys
 
 class Camera:
     def __init__(self):
@@ -22,7 +23,7 @@ class Game :
         #sélection du mode de contrôle
         try :
 
-            mode=str(input('Voulez vous lancer le mode automatique ? Répondre Y ou N'))
+            mode=sys.argv[1]
 
             if mode=='Y':
                 print('test mode automatique')

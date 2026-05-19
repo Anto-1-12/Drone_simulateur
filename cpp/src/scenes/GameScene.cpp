@@ -11,7 +11,7 @@ GameScene::GameScene() :
 
     //Lancement du server
 
-    system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py");
+    system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py N");
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     //Conection au server
