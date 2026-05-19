@@ -21,10 +21,16 @@ commande_clientserver = [
         "cmd":"reculer"
     },
     {
-        "cmd":"droit"
+        "cmd":"tourneràdroite"
     },
     {
-        "cmd":"gauche"
+        "cmd":"tourneràgauche"
+    },
+    {
+        "cmd":"alleràdroite"
+    },
+    {
+        "cmd":"alleràgauche"
     },
     {
         "cmd":"hover"
