@@ -44,7 +44,7 @@ class GameScene : public Scene
 
         bool wantToChangeScene() override;
         std::string getSceneChangeType() override;
-        void sync();
+        void sync(bool debug);
         void sendMessage(std::string command);
 };
 
