@@ -189,9 +189,14 @@ class Drone:
 
     def momentum(self):
         self.poussée()
+        print("self.puissance")
+        print(self.puissance)
+        print("self.Momentum")
         print(self.Momentum)
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
+        print("self.centregravité")
         print(self.centregravité)
+        print("self.orientationdegrés")
         print(self.orientationdegrés)
 
     def MinHauteur(self):
@@ -203,6 +208,8 @@ class Drone:
         self.v_initial=[0,0,1]
         v_direction=matricerotation @ self.v_initial
         v_direction=v_direction.tolist()
+        print("v_direction")
+        print(v_direction)
         self.Momentum=[v_direction[0]*self.puissance,v_direction[0]*self.puissance,v_direction[0]*self.puissance]
 
     #Ci-dessous : fonction d'angles
