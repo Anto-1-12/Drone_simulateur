@@ -188,13 +188,10 @@ class Drone:
         self.centregravité = [centre_elt + grav_elt for grav_elt, centre_elt in zip(self.Gravité, self.centregravité)]
 
     def momentum(self):
-        self.poussée()
         print(self.Momentum)
-        self.Momentum.tolist()
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
         print(self.centregravité)
-        print(self.orientation)
-        print(self.orientationmoteur)
+        print(self.orientationdegrés)
 
     def MinHauteur(self):
         if self.centregravité[1]<0:
