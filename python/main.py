@@ -59,9 +59,9 @@ class Game :
                     self.sceau=time.time()
 
                     #ici commandes auto
-
+                    cmdautomatisée=self.Terminator.chatgptquidoisjeviser()
                     #Tick de mouvement drone
-                    self.drone.tickdemouvement()
+                    self.drone.tickdemouvement(cmdautomatisée)
 
                     #Synchronisation Coordonnées Drone pour visualisation
                     Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
