@@ -106,6 +106,8 @@ class Drone:
 
         self.puissance=0 # max 23,5N, hover +7.84N,
 
+        self.hover=False
+
         #positions des coins dans la liste
         # 0     1
         #   | |
@@ -146,8 +148,18 @@ class Drone:
 
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
-                if self.puissance
+                if self.puissance<23.5 and not self.hover:
                     self.puissance+=2.35
+            if Ordre['cmd']=="diminuer puissance moteur":
+                if self.puissance>=2.35 and not self.hover:
+                    self.puissance-=2.35
+            if Ordre['cmd']=="hover":
+                if self.hover==False:
+                    self.memoire=self.puissance
+                    self.puissance=7.84
+                else:
+                    self.puissance=self.memoire
+
 
         self.cravité()
         self.momentum()
