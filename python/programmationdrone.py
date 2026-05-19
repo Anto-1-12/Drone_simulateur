@@ -8,9 +8,9 @@ COMMANDEexemple=[
     {"cmd":"rollgauche","temps":300},
     {"cmd":"tourneràdroite","temps":300},
     {"cmd":"tourneràgauche","temps":300},
-    {"cmd":"augmenter puissance moteur","temps":300},
-    {"cmd":"hover","temps":"300"},
-    {"cmd":"diminuer puissance moteur","temps":300}]
+    {"cmd":"augmenter puissance moteur","temps":180},
+    {"cmd":"hover","temps":300},
+    {"cmd":"diminuer puissance moteur","temps":180}]
 
 
 class Palantir:
