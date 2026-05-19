@@ -20,8 +20,8 @@ class Palantir:
     def chatgptquidoisjeviser(self):
         if self.listecommande[0]['temps']>0:
             self.listecommande[0]['temps']-=1
-            return self.listecommande[0]
+            return [self.listecommande[0]]
         else:
             self.listecommande.pop(0)
             self.listecommande[0]['temps']-=1
-            return self.listecommande[0]
+            return [self.listecommande[0]]

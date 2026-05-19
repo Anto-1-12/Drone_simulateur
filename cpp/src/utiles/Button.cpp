@@ -47,13 +47,13 @@ void Button::draw(Render& window)
     }
     if (mouseIsOnItSelf)
     {
-        buttonPos.position.z = -100.0;
+        buttonPos.position.z = 10.0;
         buttonOnPos.position.z = 0;
     }
     else
     {
         buttonPos.position.z = 0;
-        buttonOnPos.position.z = -100.0;
+        buttonOnPos.position.z = 10.0;
     }
 }
 

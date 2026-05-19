@@ -11,7 +11,7 @@ GameSceneAuto::GameSceneAuto() :
 
     //Lancement du server
 
-    system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py Y");
+    //system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py Y");
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     //Conection au server
@@ -85,6 +85,12 @@ void GameSceneAuto::draw(Render& window)
         drone.scale = glm::vec3(0.05,0.05,0.05);
         window.AddMesh("drone","assets/models/drone.obj","assets/textures/tkt.png");
         window.AddObject("drone",drone);
+
+        grond.position = glm::vec3(1,0,1);
+        grond.rotation = glm::vec3(0,0,0);
+        grond.scale = glm::vec3(1,0.01,1);
+        //window.AddMesh("grond","assets/models/block.obj","assets/textures/tkt.png");
+        //window.AddObject("grond",grond);
         
         is_init = true;
     }
@@ -97,29 +103,107 @@ void GameSceneAuto::event()
 
 void GameSceneAuto::update(float dt,Render& window)
 {
-    cube.rotation.y += 20 * dt;
+    cube.rotation.y += dt;
+    
+    bool debug = false;
+    if (window.IsKeyPressed(73))
+    {
+        debug = true;
+        std::cout<<std::endl;
+        std::cout<<"-----------------"<<std::endl;
+        std::cout<<std::endl;
+        std::cout<<"send to serv"<<std::endl;
+    }
 
     //-----------------------------------------------
     //            update send to serv
-    //65 = Q
+    //A
+    if (window.IsKeyPressed(81))
+    {
+        sendMessage(R"({"cmd":"rollgauche"})");
+        if(debug){
+            std::cout<<R"({"cmd":"rollgauche"})"<<std::endl;
+        }
+    }
+    //E
+    if (window.IsKeyPressed(69))
+    {
+        sendMessage(R"({"cmd":"rolldroite"})");
+        if(debug){
+            std::cout<<R"({"cmd":"rolldroite"})"<<std::endl;
+        }
+    }
     //87 = Z
     if (window.IsKeyPressed(87))
     {
         sendMessage(R"({"cmd":"avancer"})");
+        if(debug){
+            std::cout<<R"({"cmd":"avancer"})"<<std::endl;
+        }
     }
+    //65 = Q
     if (window.IsKeyPressed(65))
     {
-        sendMessage(R"({"cmd":"gauche"})");
+        sendMessage(R"({"cmd":"tourneràgauche"})");
+        if(debug){
+            std::cout<<R"({"cmd":"tourneràgauche"})"<<std::endl;
+        }
     }
+    //S
     if (window.IsKeyPressed(83))
     {
         sendMessage(R"({"cmd":"reculer"})");
+        if(debug){
+            std::cout<<R"({"cmd":"reculer"})"<<std::endl;
+        }
     }
+    //D
     if (window.IsKeyPressed(68))
     {
-        sendMessage(R"({"cmd":"droite"})");
+        sendMessage(R"({"cmd":"tourneràdroite"})");
+        if(debug){
+            std::cout<<R"({"cmd":"tourneràdroite"})"<<std::endl;
+        }
     }
-
+    //R
+    if (window.IsKeyPressed(82) && !is_R_pressed)
+    {
+        sendMessage(R"({"cmd":"augmenter puissance moteur"})");
+        is_R_pressed = true;
+        if(debug){
+            std::cout<<R"({"cmd":"augmenter puissance moteur"})"<<std::endl;
+        }
+    }
+    else if(!window.IsKeyPressed(82) && is_R_pressed)
+    {
+        is_R_pressed = false;
+    }
+    //F
+    if (window.IsKeyPressed(70) && !is_F_pressed)
+    {
+        sendMessage(R"({"cmd":"diminuer puissance moteur"})");
+        is_F_pressed = true;
+        if(debug){
+            std::cout<<R"({"cmd":"diminuer puissance moteur"})"<<std::endl;
+        }
+    }
+    else if(!window.IsKeyPressed(70) && is_F_pressed)
+    {
+        is_F_pressed = false;
+    }
+    //H
+    if (window.IsKeyPressed(72) && !is_H_pressed)
+    {
+        sendMessage(R"({"cmd":"hover"})");
+        is_H_pressed = true;
+        if(debug){
+            std::cout<<R"({"cmd":"hover"})"<<std::endl;
+        }
+    }
+    else if(!window.IsKeyPressed(72) && is_H_pressed)
+    {
+        is_H_pressed = false;
+    }
     //-----------------------------------------------
     //                   client
     // -> UP
@@ -144,9 +228,10 @@ void GameSceneAuto::update(float dt,Render& window)
     }
     //-----------------------------------------------
     //         update reception from serv
-    sync();
+    sync(debug);
 
-
+    //-----------------------------------------------
+    //               cam pos + angle
     glm::vec3 vec_dir = glm::vec3(cos(glm::radians(yawn)) * cos(glm::radians(pitch)),sin(glm::radians(pitch)),sin(glm::radians(yawn)) * cos(glm::radians(pitch)));
     window.SetView(drone.position+(vec_dir*3.0f),-vec_dir);
 
@@ -168,9 +253,12 @@ void GameSceneAuto::sendMessage(std::string command)
     send(sock, command.c_str(), command.size(), 0);
 }
 
-void GameSceneAuto::sync()
+void GameSceneAuto::sync(bool debug)
 {   
-
+    if(debug)
+    {
+        std::cout<<"get from serv"<<std::endl;
+    }
     char buffer[1024] = {0};
     int bytes = recv(sock, buffer, 1024, 0);
 
@@ -197,6 +285,21 @@ void GameSceneAuto::sync()
                     drone.position.x = j["x"];
                     drone.position.y = j["y"];
                     drone.position.z = j["z"];
+                    if(debug)
+                    {
+                        std::cout<<j<<std::endl;
+                    }
+                }
+                else if (cmd == "sync_drone_ang")
+                {
+                    drone.rotation.x = glm::radians(double(j["x"]));
+                    drone.rotation.y = glm::radians(double(j["y"]));
+                    drone.rotation.z = glm::radians(double(j["z"]));
+
+                    if(debug)
+                    {
+                        std::cout<<j<<std::endl;
+                    }
                 }
                 else
                 {

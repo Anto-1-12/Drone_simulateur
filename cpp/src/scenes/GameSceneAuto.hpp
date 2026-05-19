@@ -29,11 +29,16 @@ class GameSceneAuto : public Scene
 
         Transform cube;
         Transform drone;
+        Transform grond;
 
         std::string buffer_accum;
 
         float pitch;
         float yawn;
+
+        bool is_R_pressed = false;
+        bool is_F_pressed = false;
+        bool is_H_pressed = false;
 
     public:
         GameSceneAuto();
@@ -44,7 +49,7 @@ class GameSceneAuto : public Scene
 
         bool wantToChangeScene() override;
         std::string getSceneChangeType() override;
-        void sync();
+        void sync(bool debug);
         void sendMessage(std::string command);
 };
 

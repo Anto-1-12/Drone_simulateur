@@ -37,6 +37,13 @@ void Menu::draw(Render& window)
         window.AddMesh("auto mode","assets/models/rectangle.obj","assets/textures/mode_auto.png");
         window.Add2DObject("auto mode",auto_mode);
 
+        fond.position = glm::vec3(0,0,-0.1);
+        fond.rotation = glm::vec3(0,0,0);
+        fond.scale = glm::vec3(1600,900,1);
+
+        window.AddMesh("fond","assets/models/rectangle.obj","assets/textures/fond.png");
+        window.Add2DObject("fond",fond);
+
         is_init = true;
     }
     

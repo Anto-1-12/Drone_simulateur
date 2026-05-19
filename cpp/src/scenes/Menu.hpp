@@ -17,6 +17,7 @@ class Menu : public Scene
 
         Transform manu_mode;
         Transform auto_mode;
+        Transform fond;
 
     public:
         Menu();
