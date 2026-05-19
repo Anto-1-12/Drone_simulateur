@@ -122,26 +122,28 @@ class Drone:
             # angles de rotation autour des axes = (rx, ry, rz)
             #Tangage
             if Ordre['cmd']=="avancer":
-                self.changerorientation([0,1,0])
+                self.changerorientation([1,0,0])
                 print('avancer')
             if Ordre['cmd']=="reculer":
-                self.changerorientation([0,-1,0])
+                self.changerorientation([-1,0,0])
                 print('reculer')
 
             #Lacet
             if Ordre['cmd']=="tourneràdroite":
-                self.changerorientation([0,0,1])
+                self.changerorientation([0,1,0])
+                self.changerorientationmoteur([0,1,0])
                 print('tourneràdroite')
             if Ordre['cmd']=="tourneràgauche":
-                self.changerorientation([0,0,-1])
+                self.changerorientation([0,-1,0])
+                self.changerorientationmoteur([0,-1,0])
                 print('tourneràgauche')
 
             #Roulis
             if Ordre['cmd']=="rolldroite":
-                self.changerorientation([1,0,0])
+                self.changerorientationmoteur([0,0,1])
                 print('rolldroite')
             if Ordre['cmd']=="rollgauche":
-                self.changerorientation([-1,0,0])
+                self.changerorientationmoteur([0,0,-1])
                 print('rollgauche')
 
             #gestionpuissance
@@ -169,6 +171,7 @@ class Drone:
         self.centregravité = [centre_elt + grav_elt for grav_elt, centre_elt in zip(self.Gravité, self.centregravité)]
 
     def momentum(self):
+        self.poussée()
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
         print(self.centregravité)
         print(self.orientation)
@@ -176,6 +179,10 @@ class Drone:
     def MinHauteur(self):
         if self.centregravité[1]<0:
             self.centregravité[1] = 0 
+
+    def poussée(self):
+        self.puissance*self.orientationmoteur
+        self.Momentum=self.puissance*self.orientationmoteur+self.Momentum
 
     #Ci-dessous : fonction d'angles
 
@@ -215,16 +222,12 @@ class Drone:
         # angles de rotation autour des axes = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
         résultatdrone=Rotation@self.orientation
-        résultatmoteur=Rotation@self.orientationmoteur
         self.orientation=résultatdrone
-        self.orientationmoteur=résultatmoteur
 
-    def changerroll(self,angles): #
+    def changerorientationmoteur(self,angles): #
         # angles de rotation autour des axes = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
-        résultatdrone=Rotation@self.orientation
         résultatmoteur=Rotation@self.orientationmoteur
-        self.orientation=résultatdrone
         self.orientationmoteur=résultatmoteur
 
     #fonctions de partage des données
