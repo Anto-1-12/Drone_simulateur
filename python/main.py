@@ -51,7 +51,6 @@ class Game :
         #code du mode auto
         if self.mode=='Auto':
             while self.run:
-                print("Mode auto")
                 if time.time()-self.sceau >= 1/60 :
                     #Tic de 1/60 de seconde
                     print('tic')
