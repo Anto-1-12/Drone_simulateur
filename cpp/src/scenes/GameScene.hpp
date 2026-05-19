@@ -35,6 +35,10 @@ class GameScene : public Scene
         float pitch;
         float yawn;
 
+        bool is_R_pressed = false;
+        bool is_F_pressed = false;
+        bool is_H_pressed = false;
+
     public:
         GameScene();
         ~GameScene();

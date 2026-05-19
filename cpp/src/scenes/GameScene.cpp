@@ -111,7 +111,6 @@ void GameScene::update(float dt,Render& window)
 
     //-----------------------------------------------
     //            update send to serv
-    //65 = Q
     //87 = Z
     if (window.IsKeyPressed(87))
     {
@@ -120,6 +119,7 @@ void GameScene::update(float dt,Render& window)
             std::cout<<R"({"cmd":"avancer"})"<<std::endl;
         }
     }
+    //65 = Q
     if (window.IsKeyPressed(65))
     {
         sendMessage(R"({"cmd":"gauche"})");
@@ -127,6 +127,7 @@ void GameScene::update(float dt,Render& window)
             std::cout<<R"({"cmd":"gauche"})"<<std::endl;
         }
     }
+    //S
     if (window.IsKeyPressed(83))
     {
         sendMessage(R"({"cmd":"reculer"})");
@@ -134,6 +135,7 @@ void GameScene::update(float dt,Render& window)
             std::cout<<R"({"cmd":"reculer"})"<<std::endl;
         }
     }
+    //D
     if (window.IsKeyPressed(68))
     {
         sendMessage(R"({"cmd":"droite"})");
@@ -141,7 +143,45 @@ void GameScene::update(float dt,Render& window)
             std::cout<<R"({"cmd":"droite"})"<<std::endl;
         }
     }
-
+    //R
+    if (window.IsKeyPressed(82) && !is_R_pressed)
+    {
+        sendMessage(R"({"cmd":"augmenter puissance moteur"})");
+        is_R_pressed = true;
+        if(debug){
+            std::cout<<R"({"cmd":"augmenter puissance moteur"})"<<std::endl;
+        }
+    }
+    else if(!window.IsKeyPressed(82) && is_R_pressed)
+    {
+        is_R_pressed = false;
+    }
+    //F
+    if (window.IsKeyPressed(70) && !is_F_pressed)
+    {
+        sendMessage(R"({"cmd":"diminuer puissance moteur"})");
+        is_F_pressed = true;
+        if(debug){
+            std::cout<<R"({"cmd":"diminuer puissance moteur"})"<<std::endl;
+        }
+    }
+    else if(!window.IsKeyPressed(82) && is_F_pressed)
+    {
+        is_F_pressed = false;
+    }
+    //H
+    if (window.IsKeyPressed(70) && !is_H_pressed)
+    {
+        sendMessage(R"({"cmd":"hover"})");
+        is_H_pressed = true;
+        if(debug){
+            std::cout<<R"({"cmd":"hover"})"<<std::endl;
+        }
+    }
+    else if(!window.IsKeyPressed(82) && is_H_pressed)
+    {
+        is_H_pressed = false;
+    }
     //-----------------------------------------------
     //                   client
     // -> UP
@@ -168,7 +208,8 @@ void GameScene::update(float dt,Render& window)
     //         update reception from serv
     sync(debug);
 
-
+    //-----------------------------------------------
+    //               cam pos + angle
     glm::vec3 vec_dir = glm::vec3(cos(glm::radians(yawn)) * cos(glm::radians(pitch)),sin(glm::radians(pitch)),sin(glm::radians(yawn)) * cos(glm::radians(pitch)));
     window.SetView(drone.position+(vec_dir*3.0f),-vec_dir);
 
