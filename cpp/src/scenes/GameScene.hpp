@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <cmath>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <unistd.h>
