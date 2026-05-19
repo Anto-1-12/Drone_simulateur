@@ -98,9 +98,9 @@ class Drone:
 
         self.centregravité=[1,1,1]  # coordonnées, X droite gauche, Y hauteur, Z Profondeur
 
-        self.orientation=[0,0,0]    #vecteur orientation, X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
+        self.orientation=[0,0,1]    #vecteur orientation, X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
 
-        self.orientationmoteur=[0,90,0] #vecteur poussée,
+        self.orientationmoteur=[0,1,0] #vecteur poussée,
 
         self.puissance=0 # max 23,5N, hover +7.84N,
 

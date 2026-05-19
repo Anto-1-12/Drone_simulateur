@@ -2,7 +2,7 @@ import numpy as np
 class d3:
 
     def __init__(self):
-        self.orientation=[1, #x
+        self.orientation=[0, #x
                           0, #y
                           0] #z
 
@@ -48,7 +48,8 @@ class d3:
         # angles = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
         print(Rotation)
-        résultat=Rotation@self.orientation
+        v=np.array([1,0,0])
+        résultat=v@Rotation@self.orientation
         print("résultat")
         print(résultat)
           
