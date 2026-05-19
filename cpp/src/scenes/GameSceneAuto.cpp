@@ -1,6 +1,6 @@
-#include "GameScene.hpp"
+#include "GameSceneAuto.hpp"
 
-GameScene::GameScene() :
+GameSceneAuto::GameSceneAuto() :
     Scene(),
     scneneToChange("Menu"),
     wantToChange(false),
@@ -11,7 +11,7 @@ GameScene::GameScene() :
 
     //Lancement du server
 
-    system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py N");
+    system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py Y");
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     //Conection au server
@@ -60,13 +60,13 @@ GameScene::GameScene() :
     }
 }
     
-GameScene::~GameScene()
+GameSceneAuto::~GameSceneAuto()
 {
     closesocket(sock);
     WSACleanup();
 }
 
-void GameScene::draw(Render& window)
+void GameSceneAuto::draw(Render& window)
 {
     if (is_init == false)
     {
@@ -90,12 +90,12 @@ void GameScene::draw(Render& window)
     }
 }
 
-void GameScene::event()
+void GameSceneAuto::event()
 {
     
 }
 
-void GameScene::update(float dt,Render& window)
+void GameSceneAuto::update(float dt,Render& window)
 {
     cube.rotation.y += 20 * dt;
 
@@ -152,23 +152,23 @@ void GameScene::update(float dt,Render& window)
 
 }
 
-bool GameScene::wantToChangeScene()
+bool GameSceneAuto::wantToChangeScene()
 {
     return wantToChange;
 }
 
-std::string GameScene::getSceneChangeType()
+std::string GameSceneAuto::getSceneChangeType()
 {
     return scneneToChange;
 }
 
-void GameScene::sendMessage(std::string command)
+void GameSceneAuto::sendMessage(std::string command)
 {
     command += "\n";
     send(sock, command.c_str(), command.size(), 0);
 }
 
-void GameScene::sync()
+void GameSceneAuto::sync()
 {   
 
     char buffer[1024] = {0};

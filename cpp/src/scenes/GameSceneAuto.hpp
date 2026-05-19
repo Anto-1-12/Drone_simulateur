@@ -1,5 +1,5 @@
-#ifndef GAMESCENE
-#define GAMESCENE
+#ifndef GAMESCENEAUTO
+#define GAMESCENEAUTO
 
 #include "Scene.hpp"
 #include "Utiles.hpp"
@@ -16,7 +16,7 @@
 #include <nlohmann/json.hpp>
 
 
-class GameScene : public Scene
+class GameSceneAuto : public Scene
 {
     private:
         std::string scneneToChange;
@@ -36,8 +36,8 @@ class GameScene : public Scene
         float yawn;
 
     public:
-        GameScene();
-        ~GameScene();
+        GameSceneAuto();
+        ~GameSceneAuto();
         void event() override;
         void update(float dt,Render& window) override;
         void draw(Render& window) override;

@@ -203,7 +203,7 @@ void OpenGLRenderer::Update()
     
     for (int i = 0; i < all_object.size(); i++)
     {
-        Mesh& mesh = all_mesh[all_2D_object[i].mesh_indice];
+        Mesh& mesh = all_mesh[all_object[i].mesh_indice];
         glBindVertexArray(mesh.VAO);
 
         //passer les donner au shader pour transformer le model et l'envoyer dans l'espace
@@ -397,12 +397,12 @@ void OpenGLRenderer::SetView(glm::vec3 position, glm::vec3 vecDirection)
 
 void OpenGLRenderer::ClearMesh()
 {
-    std::vector<Mesh>().swap(all_mesh);
+    all_mesh.clear();
 }
 
 void OpenGLRenderer::ClearObject()
 {
-    std::vector<Object>().swap(all_object);
+    all_object.clear();
 }
 
 void OpenGLRenderer::Clear2DObject()
