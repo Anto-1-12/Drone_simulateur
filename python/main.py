@@ -30,6 +30,7 @@ class Game :
                 self.mode="Auto"
                 from programmationdrone import Palantir
                 self.Terminator=Palantir()
+                InitialisationConnection()
 
             elif mode=='N':
                 print('test mode manuel')
