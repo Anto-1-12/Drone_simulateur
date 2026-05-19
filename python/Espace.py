@@ -105,7 +105,9 @@ class Drone:
 
         self.orientationmoteur=[0,1,0] #vecteur poussée,
 
-        self.puissance=0 # max 23,5N, hover +7.84N,
+        self.puissance=23.52  # max 23,5N, hover +7.84N,
+
+        self.pourcentmoteur=0 
 
         self.hover=False
 
@@ -166,15 +168,15 @@ class Drone:
 
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
-                if self.puissance<23.5 and not self.hover:
-                    self.puissance+=2.35
+                if self.puissance<10 and not self.hover:
+                    self.puissance+=1
             if Ordre['cmd']=="diminuer puissance moteur":
-                if self.puissance>=2.35 and not self.hover:
-                    self.puissance-=2.35
+                if self.puissance>0 and not self.hover:
+                    self.puissance-=1
             if Ordre['cmd']=="hover":
                 if self.hover==False:
                     self.memoire=self.puissance
-                    self.puissance=7.84
+                    self.puissance=3
                     self.hover=True
                 else:
                     self.puissance=self.memoire
@@ -205,11 +207,12 @@ class Drone:
 
     def poussée(self):
         matricerotation=self.rotation_matrix(self.orientationdegrés[0],self.orientationdegrés[1],self.orientationdegrés[2])
-        self.v_initial=[0,0,1]
+        self.v_initial=[0,1,0]
         v_direction=matricerotation @ self.v_initial
         v_direction=v_direction.tolist()
         print("v_direction")
         print(v_direction)
+        force=round(self.puissance*self.pourcentmoteur/100,2)
         self.Momentum=[v_direction[0]*self.puissance,v_direction[0]*self.puissance,v_direction[0]*self.puissance]
 
     #Ci-dessous : fonction d'angles
