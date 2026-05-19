@@ -168,18 +168,18 @@ class Drone:
 
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
-                if self.puissance<10 and not self.hover:
-                    self.puissance+=1
+                if self.pourcentmoteur<10 and not self.hover:
+                    self.pourcentmoteur+=1
             if Ordre['cmd']=="diminuer puissance moteur":
-                if self.puissance>0 and not self.hover:
-                    self.puissance-=1
+                if self.pourcentmoteur>0 and not self.hover:
+                    self.pourcentmoteur-=1
             if Ordre['cmd']=="hover":
                 if self.hover==False:
-                    self.memoire=self.puissance
-                    self.puissance=3
+                    self.memoire=self.pourcentmoteur
+                    self.pourcentmoteur=3
                     self.hover=True
                 else:
-                    self.puissance=self.memoire
+                    self.pourcentmoteur=self.memoire
                     self.hover=False
 
         self.cravité()
@@ -207,7 +207,7 @@ class Drone:
 
     def poussée(self):
         matricerotation=self.rotation_matrix(self.orientationdegrés[0],self.orientationdegrés[1],self.orientationdegrés[2])
-        self.v_initial=[0,1,0]
+        self.v_initial=[1,0,0]
         v_direction=matricerotation @ self.v_initial
         v_direction=v_direction.tolist()
         print("v_direction")
