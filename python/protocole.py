@@ -30,6 +30,9 @@ commande_clientserver = [
         "cmd":"hover"
     },
     {
-        "cmd":"vol"
-    }
+        "cmd":"augmenter puissance moteur"
+    },
+    {
+        "cmd":"diminuer puissance moteur"
+    },
 ]
