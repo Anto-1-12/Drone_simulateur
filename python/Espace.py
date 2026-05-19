@@ -125,13 +125,13 @@ class Drone:
             # angles de rotation autour des axes = (rx, ry, rz)
             #Tangage
             if Ordre['cmd']=="avancer":
-                if self.orientationdegrés(0)<360:
+                if self.orientationdegrés[0]<360:
                     self.orientationdegrés+=1
                 else: 
                     self.orientationdegrés=0
                 print('avancer')
             if Ordre['cmd']=="reculer":
-                if self.orientationdegrés(0)>0 :
+                if self.orientationdegrés[0]>0 :
                     self.orientationdegrés-=1
                 else: 
                     self.orientationdegrés=360
@@ -140,13 +140,13 @@ class Drone:
 
             #Lacet
             if Ordre['cmd']=="tourneràdroite":
-                if self.orientationdegrés(1)<360:
+                if self.orientationdegrés[1]<360:
                     self.orientationdegrés+=1
                 else: 
                     self.orientationdegrés=0
                 print('tourneràdroite')
             if Ordre['cmd']=="tourneràgauche":
-                if self.orientationdegrés(1)>0 :
+                if self.orientationdegrés[1]>0 :
                     self.orientationdegrés-=1
                 else: 
                     self.orientationdegrés=360
@@ -154,11 +154,11 @@ class Drone:
 
             #Roulis
             if Ordre['cmd']=="rolldroite":
-                if self.orientationdegrés(2)<360:
+                if self.orientationdegrés[2]<360:
                     self.orientationdegrés+=1
                 print('rolldroite')
             if Ordre['cmd']=="rollgauche":
-                if self.orientationdegrés(2)>0 :
+                if self.orientationdegrés[2]>0 :
                     self.orientationdegrés-=1
                 else: 
                     self.orientationdegrés=360
