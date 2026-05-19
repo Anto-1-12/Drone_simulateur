@@ -89,6 +89,7 @@ class Drone:
     Gravité=[0,
              -7.84, #-1 pour test, -7.84 N pour un drone de 800 grammes
              0]
+    #Vecteur momentum :
     Momentum=[0, #1 pour test
             0,
             0]
@@ -96,9 +97,6 @@ class Drone:
     def __init__(self):
 
         self.centregravité=[1,1,1]  # coordonnées, X droite gauche, Y hauteur, Z Profondeur
-
-        #Vecteur momentum :
-
 
         self.orientation=[0,0,0]    #vecteur orientation, X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
 
@@ -133,18 +131,18 @@ class Drone:
             #Lacet
             if Ordre['cmd']=="tourneràdroite":
                 self.changerorientation([0,0,1])
-                print('droite')
+                print('tourneràdroite')
             if Ordre['cmd']=="tourneràgauche":
                 self.changerorientation([0,0,-1])
-                print('gauche')
+                print('tourneràgauche')
 
             #Roulis
-            if Ordre['cmd']=="tourneràdroite":
+            if Ordre['cmd']=="rolldroite":
                 self.changerorientation([1,0,0])
-                print('droite')
-            if Ordre['cmd']=="tourneràgauche":
+                print('rolldroite')
+            if Ordre['cmd']=="rollgauche":
                 self.changerorientation([-1,0,0])
-                print('gauche')
+                print('rollgauche')
 
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
@@ -157,8 +155,10 @@ class Drone:
                 if self.hover==False:
                     self.memoire=self.puissance
                     self.puissance=7.84
+                    self.hover=True
                 else:
                     self.puissance=self.memoire
+                    self.hover=False
 
 
         self.cravité()
