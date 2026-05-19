@@ -138,9 +138,9 @@ void GameScene::update(float dt,Render& window)
     //65 = Q
     if (window.IsKeyPressed(65))
     {
-        sendMessage(R"({"cmd":"gauche"})");
+        sendMessage(R"({"cmd":"tourneràgauche"})");
         if(debug){
-            std::cout<<R"({"cmd":"gauche"})"<<std::endl;
+            std::cout<<R"({"cmd":"tourneràgauche"})"<<std::endl;
         }
     }
     //S
@@ -154,9 +154,9 @@ void GameScene::update(float dt,Render& window)
     //D
     if (window.IsKeyPressed(68))
     {
-        sendMessage(R"({"cmd":"droite"})");
+        sendMessage(R"({"cmd":"tourneràdroite"})");
         if(debug){
-            std::cout<<R"({"cmd":"droite"})"<<std::endl;
+            std::cout<<R"({"cmd":"tourneràdroite"})"<<std::endl;
         }
     }
     //R
@@ -181,12 +181,12 @@ void GameScene::update(float dt,Render& window)
             std::cout<<R"({"cmd":"diminuer puissance moteur"})"<<std::endl;
         }
     }
-    else if(!window.IsKeyPressed(82) && is_F_pressed)
+    else if(!window.IsKeyPressed(70) && is_F_pressed)
     {
         is_F_pressed = false;
     }
     //H
-    if (window.IsKeyPressed(70) && !is_H_pressed)
+    if (window.IsKeyPressed(72) && !is_H_pressed)
     {
         sendMessage(R"({"cmd":"hover"})");
         is_H_pressed = true;
@@ -194,7 +194,7 @@ void GameScene::update(float dt,Render& window)
             std::cout<<R"({"cmd":"hover"})"<<std::endl;
         }
     }
-    else if(!window.IsKeyPressed(82) && is_H_pressed)
+    else if(!window.IsKeyPressed(72) && is_H_pressed)
     {
         is_H_pressed = false;
     }
