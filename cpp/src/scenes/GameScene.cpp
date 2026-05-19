@@ -4,7 +4,9 @@ GameScene::GameScene() :
     Scene(),
     scneneToChange("Menu"),
     wantToChange(false),
-    is_init(false)
+    is_init(false),
+    pitch(0.0f),
+    yawn(0.0f)
 {
 
     //Lancement du server
@@ -86,8 +88,6 @@ void GameScene::draw(Render& window)
         
         is_init = true;
     }
-    
-    window.SetView(drone.position+glm::vec3(0,5,10),glm::vec3(0,-5,-10));
 }
 
 void GameScene::event()
@@ -98,6 +98,9 @@ void GameScene::event()
 void GameScene::update(float dt,Render& window)
 {
     cube.rotation.y += 20 * dt;
+
+    //-----------------------------------------------
+    //            update send to serv
     //65 = Q
     //87 = Z
     if (window.IsKeyPressed(87))
@@ -117,7 +120,35 @@ void GameScene::update(float dt,Render& window)
         sendMessage(R"({"cmd":"droite"})");
     }
 
+    //-----------------------------------------------
+    //                   client
+    // -> UP
+    if (window.IsKeyPressed(265))
+    {
+        pitch -= 150 * dt;
+    }
+    // -> DOWN
+    if (window.IsKeyPressed(264))
+    {
+        pitch += 150 * dt;
+    }
+    // -> LEFT
+    if (window.IsKeyPressed(263))
+    {
+        yawn -= 150 * dt;
+    }
+    // -> RIGHT
+    if (window.IsKeyPressed(262))
+    {
+        yawn += 150 * dt;
+    }
+    //-----------------------------------------------
+    //         update reception from serv
     sync();
+
+
+    glm::vec3 vec_dir = glm::vec3(cos(glm::radians(yawn)) * cos(glm::radians(pitch)),sin(glm::radians(pitch)),sin(glm::radians(yawn)) * cos(glm::radians(pitch)));
+    window.SetView(drone.position+(vec_dir*3.0f),-vec_dir);
 
 }
 

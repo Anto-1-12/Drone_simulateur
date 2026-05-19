@@ -32,6 +32,9 @@ class GameScene : public Scene
 
         std::string buffer_accum;
 
+        float pitch;
+        float yawn;
+
     public:
         GameScene();
         ~GameScene();
