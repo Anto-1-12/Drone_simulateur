@@ -5,8 +5,7 @@ Menu::Menu():
     scneneToChange("GameScene"),
     wantToChange(false),
     is_init(false),
-    button1(glm::vec2(675,325),glm::vec2(250,250),"assets/textures/tkt.png","B1"),
-    button2(glm::vec2(0,0),glm::vec2(250,250),"assets/textures/texture.png","B2")
+    button1(glm::vec2(675,325),glm::vec2(250,250),"assets/textures/Play_button.png","B1")
 {
 }
 
@@ -26,7 +25,6 @@ void Menu::draw(Render& window)
     }
     
     button1.draw(window);
-    button2.draw(window);
 
 }
 

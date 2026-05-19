@@ -13,7 +13,6 @@ class Menu : public Scene
         Transform rectangle;
 
         Button button1;
-        Button button2;
 
     public:
         Menu();

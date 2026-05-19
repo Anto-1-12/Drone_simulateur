@@ -7,7 +7,7 @@ GameScene::GameScene() :
     is_init(false)
 {
 
-    //Lancement du server
+    //Lancement du server//
 
     system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py");
     std::this_thread::sleep_for(std::chrono::seconds(5));
@@ -81,7 +81,7 @@ void GameScene::draw(Render& window)
         drone.position = glm::vec3(0,0,0);
         drone.rotation = glm::vec3(0,0,0);
         drone.scale = glm::vec3(0.05,0.05,0.05);
-        window.AddMesh("drone","assets/models/drone.obj","assets/textures/texture.png");
+        window.AddMesh("drone","assets/models/drone.obj","assets/textures/tkt.png");
         window.AddObject("drone",drone);
         
         is_init = true;
