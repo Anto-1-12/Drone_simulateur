@@ -235,19 +235,19 @@ class Drone:
     def getcoordonnées(self):
         return({
         "cmd":"sync_drone_pos",
-        "x":self.centregravité[0],
-        "y":self.centregravité[1],
-        "z":self.centregravité[2]
+        "x":float(self.centregravité[0]),
+        "y":float(self.centregravité[1]),
+        "z":float(self.centregravité[2])
     })
     def getangle(self):
         return({
         "cmd":"sync_drone_ang",
-        "x":self.orientation[0],
-        "y":self.orientation[1],
-        "z":self.orientation[2],
-        "x2":self.orientationmoteur[0],
-        "y2":self.orientationmoteur[1],
-        "z2":self.orientationmoteur[2],
+        "x":float(self.orientation[0]),
+        "y":float(self.orientation[1]),
+        "z":float(self.orientation[2]),
+        "x2":float(self.orientationmoteur[0]),
+        "y2":float(self.orientationmoteur[1]),
+        "z2":float(self.orientationmoteur[2]),
     })
 
 
