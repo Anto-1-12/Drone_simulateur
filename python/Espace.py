@@ -114,7 +114,7 @@ class Drone:
         #   | |
         #   | |
         # 2     3
-
+        #annulé
         self.coins=[[-10,0,10],[10,0,10],[-10,-0,10],[10,-0,10]]
         self.moteurs=[]*(4)
         for x in range(len(self.moteurs)):
@@ -198,7 +198,10 @@ class Drone:
             self.centregravité[1] = 0 
 
     def poussée(self):
-        self.Momentum=self.puissance*np.array(self.orientationmoteur)
+        matricerotation=self.rotation_matrix(self.orientationdegrés[0],self.orientationdegrés[1],self.orientationdegrés[2])
+        self.v_initial=[0,0,1]
+        v_direction=matricerotation @ self.v_initial
+        self.Momentum=v_direction*self.puissance
 
     #Ci-dessous : fonction d'angles
 
@@ -234,12 +237,14 @@ class Drone:
         rz=np.radians(rz)
         return self.rotation_z(rz) @ self.rotation_y(ry) @ self.rotation_x(rx)
     
+
+    #inutile
     def changerorientation(self,angles): #
         # angles de rotation autour des axes = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
         résultatdrone=Rotation@self.orientation
         self.orientation=résultatdrone
-
+    #inutile
     def changerorientationmoteur(self,angles): #
         # angles de rotation autour des axes = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
