@@ -87,7 +87,7 @@ class Eclairage:
 class Drone:
     #gravité à mettre ici
     Gravité=[0,
-             -7.84, #-1 pour test, -7.84 pour un drone de 800 grammes
+             -7.84, #-1 pour test, -7.84 N pour un drone de 800 grammes
              0]
     Momentum=[0, #1 pour test
             0,
@@ -104,6 +104,7 @@ class Drone:
 
         self.orientationmoteur=[0,90,0] #vecteur poussée,
 
+        self.puissance=0 # max 23,5N, hover +7.84N,
 
         #positions des coins dans la liste
         # 0     1
@@ -116,35 +117,37 @@ class Drone:
         for x in range(len(self.moteurs)):
             self.moteurs[x]=Moteur.__init__(self.coins[x],self.orientation)
 
-    def tickdemouvement(self,commandes): #+interprétation commandes
+    def tickdemouvement(self,commandes): #+interprétation commandes 
         for Ordre in commandes:
+            # angles de rotation autour des axes = (rx, ry, rz)
+            #Tangage
             if Ordre['cmd']=="avancer":
-                self.centregravité[2]+= 1
-                self.orientation[2]= -0.15
+                self.changerorientation([0,1,0])
                 print('avancer')
-            else:
-                self.orientation[2]= 0
-
             if Ordre['cmd']=="reculer":
-                self.centregravité[2]-= 1
-                self.orientation[2]= 0.15
+                self.changerorientation([0,-1,0])
                 print('reculer')
-            else:
-                self.orientation[2]= 0
-                
-            if Ordre['cmd']=="droite":
-                self.centregravité[0]+= 1
-                self.orientation[0]= -0.15
-                print('droite')
-            else:
-                self.orientation[0]= 0
 
-            if Ordre['cmd']=="gauche":
-                self.centregravité[0]-= 1
-                self.orientation[0]= 0.15
+            #Lacet
+            if Ordre['cmd']=="tourneràdroite":
+                self.changerorientation([0,0,1])
+                print('droite')
+            if Ordre['cmd']=="tourneràgauche":
+                self.changerorientation([0,0,-1])
                 print('gauche')
-            else:
-                self.orientation[0]= 0
+
+            #Roulis
+            if Ordre['cmd']=="tourneràdroite":
+                self.changerorientation([1,0,0])
+                print('droite')
+            if Ordre['cmd']=="tourneràgauche":
+                self.changerorientation([-1,0,0])
+                print('gauche')
+
+            #gestionpuissance
+            if Ordre['cmd']=="augmenter puissance moteur":
+                if self.puissance
+                    self.puissance+=2.35
 
         self.cravité()
         self.momentum()
@@ -196,7 +199,7 @@ class Drone:
         rz=np.radians(rz)
         return self.rotation_z(rz) @ self.rotation_y(ry) @ self.rotation_x(rx)
     
-    def orientation(self,angles): #
+    def changerorientation(self,angles): #
         # angles de rotation autour des axes = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
         print(Rotation)
