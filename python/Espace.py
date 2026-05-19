@@ -167,11 +167,11 @@ class Drone:
 
     def cravité(self):
         self.centregravité = [centre_elt + grav_elt for grav_elt, centre_elt in zip(self.Gravité, self.centregravité)]
-        print(self.centregravité)
 
     def momentum(self):
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
         print(self.centregravité)
+        print(self.orientation)
 
     def MinHauteur(self):
         if self.centregravité[1]<0:
