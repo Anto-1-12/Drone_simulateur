@@ -9,7 +9,7 @@ GameScene::GameScene() :
     yawn(0.0f)
 {
 
-    //Lancement du server
+    //Lancement du server//
 
     system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py N");
     std::this_thread::sleep_for(std::chrono::seconds(5));
@@ -98,6 +98,16 @@ void GameScene::event()
 void GameScene::update(float dt,Render& window)
 {
     cube.rotation.y += 20 * dt;
+    
+    bool debug = false;
+    if (window.IsKeyPressed(73))
+    {
+        debug = true;
+        std::cout<<std::endl;
+        std::cout<<"-----------------"<<std::endl;
+        std::cout<<std::endl;
+        std::cout<<"send to serv"<<std::endl;
+    }
 
     //-----------------------------------------------
     //            update send to serv
@@ -106,18 +116,30 @@ void GameScene::update(float dt,Render& window)
     if (window.IsKeyPressed(87))
     {
         sendMessage(R"({"cmd":"avancer"})");
+        if(debug){
+            std::cout<<R"({"cmd":"avancer"})"<<std::endl;
+        }
     }
     if (window.IsKeyPressed(65))
     {
         sendMessage(R"({"cmd":"gauche"})");
+        if(debug){
+            std::cout<<R"({"cmd":"gauche"})"<<std::endl;
+        }
     }
     if (window.IsKeyPressed(83))
     {
         sendMessage(R"({"cmd":"reculer"})");
+        if(debug){
+            std::cout<<R"({"cmd":"reculer"})"<<std::endl;
+        }
     }
     if (window.IsKeyPressed(68))
     {
         sendMessage(R"({"cmd":"droite"})");
+        if(debug){
+            std::cout<<R"({"cmd":"droite"})"<<std::endl;
+        }
     }
 
     //-----------------------------------------------
@@ -144,7 +166,7 @@ void GameScene::update(float dt,Render& window)
     }
     //-----------------------------------------------
     //         update reception from serv
-    sync();
+    sync(debug);
 
 
     glm::vec3 vec_dir = glm::vec3(cos(glm::radians(yawn)) * cos(glm::radians(pitch)),sin(glm::radians(pitch)),sin(glm::radians(yawn)) * cos(glm::radians(pitch)));
@@ -168,9 +190,12 @@ void GameScene::sendMessage(std::string command)
     send(sock, command.c_str(), command.size(), 0);
 }
 
-void GameScene::sync()
+void GameScene::sync(bool debug)
 {   
-
+    if(debug)
+    {
+        std::cout<<"get from serv"<<std::endl;
+    }
     char buffer[1024] = {0};
     int bytes = recv(sock, buffer, 1024, 0);
 
@@ -197,6 +222,20 @@ void GameScene::sync()
                     drone.position.x = j["x"];
                     drone.position.y = j["y"];
                     drone.position.z = j["z"];
+                    if(debug)
+                    {
+                        std::cout<<j<<std::endl;
+                    }
+                }
+                else if (cmd == "sync_drone_ang")
+                {
+                    drone.rotation.x = j["x"];
+                    drone.rotation.y = j["y"];
+                    drone.rotation.z = j["z"];
+                    if(debug)
+                    {
+                        std::cout<<j<<std::endl;
+                    }
                 }
                 else
                 {
