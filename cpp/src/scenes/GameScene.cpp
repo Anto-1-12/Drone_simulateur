@@ -89,8 +89,8 @@ void GameScene::draw(Render& window)
         grond.position = glm::vec3(1,0,1);
         grond.rotation = glm::vec3(0,0,0);
         grond.scale = glm::vec3(1,0.01,1);
-        window.AddMesh("grond","assets/models/block.obj","assets/textures/tkt.png");
-        window.AddObject("grond",grond);
+        //window.AddMesh("grond","assets/models/block.obj","assets/textures/tkt.png");
+        //window.AddObject("grond",grond);
         
         is_init = true;
     }
@@ -292,25 +292,9 @@ void GameScene::sync(bool debug)
                 }
                 else if (cmd == "sync_drone_ang")
                 {
-                    glm::vec3 dir = glm::normalize(glm::vec3(j["x"], j["y"], j["z"]));
-                    glm::vec3 dir2 = glm::normalize(glm::vec3(j["x2"], j["y2"], j["z2"]));
-
-                    glm::vec3 forward = dir;        // Vecteur avant
-                    glm::vec3 right = dir2;         // Vecteur droite
-
-                    // Calculer le vecteur up manquant
-                    glm::vec3 up = glm::cross(right, forward);
-
-                    // Construire la matrice de rotation
-                    glm::mat3 rotMatrix = glm::mat3(right, up, -forward);
-
-                    // Extraire les angles d'Euler (convention ZYX)
-                    glm::vec3 eulerAngles = glm::eulerAngles(glm::quat_cast(rotMatrix));
-
-                    // Calculer les angles
-                    drone.rotation.x = eulerAngles.x;
-                    drone.rotation.y = eulerAngles.y;
-                    drone.rotation.z = eulerAngles.z;
+                    drone.rotation.x = glm::radians(double(j["x"]));
+                    drone.rotation.y = glm::radians(double(j["y"]));
+                    drone.rotation.z = glm::radians(double(j["z"]));
 
                     if(debug)
                     {

@@ -15,6 +15,9 @@ class Menu : public Scene
         Button button1;
         Button button2;
 
+        Transform manu_mode;
+        Transform auto_mode;
+
     public:
         Menu();
         ~Menu();

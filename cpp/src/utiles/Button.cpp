@@ -1,13 +1,17 @@
 #include "Button.hpp"
 
-Button::Button(glm::vec2 pos, glm::vec2 size, std::string txtPath, std::string meshName):
+Button::Button(glm::vec2 pos, glm::vec2 size, std::string txtPath, std::string txtOnPath, std::string meshName):
     isInit(false),
     texturePath(txtPath),
+    textureOnPath(txtOnPath),
     name(meshName)
 {
     buttonPos.position = glm::vec3(pos,0);
     buttonPos.rotation = glm::vec3(0,0,0);
     buttonPos.scale = glm::vec3(size,1);
+    buttonOnPos.position = glm::vec3(pos,-100);
+    buttonOnPos.rotation = glm::vec3(0,0,0);
+    buttonOnPos.scale = glm::vec3(size,1);
 }
 
 Button::~Button()
@@ -36,7 +40,20 @@ void Button::draw(Render& window)
     {
         window.AddMesh(name,"assets/models/rectangle.obj",texturePath);
         window.Add2DObject(name,buttonPos);
+
+        window.AddMesh(name+"on","assets/models/rectangle.obj",textureOnPath);
+        window.Add2DObject(name+"on",buttonOnPos);
         isInit = true;
+    }
+    if (mouseIsOnItSelf)
+    {
+        buttonPos.position.z = -100.0;
+        buttonOnPos.position.z = 0;
+    }
+    else
+    {
+        buttonPos.position.z = 0;
+        buttonOnPos.position.z = -100.0;
     }
 }
 
