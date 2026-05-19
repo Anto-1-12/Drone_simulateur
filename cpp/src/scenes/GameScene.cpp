@@ -7,7 +7,7 @@ GameScene::GameScene() :
     is_init(false)
 {
 
-    //Lancement du server//
+    //Lancement du server
 
     system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py");
     std::this_thread::sleep_for(std::chrono::seconds(5));
