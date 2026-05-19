@@ -214,11 +214,18 @@ class Drone:
     def changerorientation(self,angles): #
         # angles de rotation autour des axes = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
-        print(Rotation)
-        résultat=Rotation@self.orientation
-        print("résultat")
-        print(résultat)
-        self.orientation=résultat
+        résultatdrone=Rotation@self.orientation
+        résultatmoteur=Rotation@self.orientationmoteur
+        self.orientation=résultatdrone
+        self.orientationmoteur=résultatmoteur
+
+    def changerroll(self,angles): #
+        # angles de rotation autour des axes = (rx, ry, rz)
+        Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
+        résultatdrone=Rotation@self.orientation
+        résultatmoteur=Rotation@self.orientationmoteur
+        self.orientation=résultatdrone
+        self.orientationmoteur=résultatmoteur
 
     #fonctions de partage des données
     def getcoordonnées(self):
@@ -233,7 +240,10 @@ class Drone:
         "cmd":"sync_drone_ang",
         "x":self.orientation[0],
         "y":self.orientation[1],
-        "z":self.orientation[2]
+        "z":self.orientation[2],
+        "x2":self.orientationmoteur[0],
+        "y2":self.orientationmoteur[1],
+        "z2":self.orientationmoteur[2],
     })
 
 
