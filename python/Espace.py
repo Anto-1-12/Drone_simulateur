@@ -207,7 +207,7 @@ class Drone:
 
     def poussée(self):
         matricerotation=self.rotation_matrix(self.orientationdegrés[0],self.orientationdegrés[1],self.orientationdegrés[2])
-        self.v_initial=[1,0,0]
+        self.v_initial=[0,1,0]
         v_direction=matricerotation @ self.v_initial
         v_direction=v_direction.tolist()
         print("v_direction")
