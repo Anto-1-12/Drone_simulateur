@@ -149,10 +149,10 @@ class Drone:
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
                 if self.puissance<23.5 and not self.hover:
-                    self.puissance+=2.35
+                    self.puissance+=0.235
             if Ordre['cmd']=="diminuer puissance moteur":
                 if self.puissance>=2.35 and not self.hover:
-                    self.puissance-=2.35
+                    self.puissance-=0.235
             if Ordre['cmd']=="hover":
                 if self.hover==False:
                     self.memoire=self.puissance
