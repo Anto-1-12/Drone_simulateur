@@ -67,7 +67,7 @@ class Game :
                     Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
 
                     #Synchronisation Angle Drone pour visualisation
-                    Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
+                    Transmission(json.dumps(self.drone.getangle())+"\n")
 
         #code du mode manuel
         else:
