@@ -5,8 +5,8 @@ Menu::Menu():
     scneneToChange("GameScene"),
     wantToChange(false),
     is_init(false),
-    button1(glm::vec2(675,125),glm::vec2(250,250),"assets/textures/Play_button.png","assets/textures/Play_button_press.png","B1"),
-    button2(glm::vec2(675,500),glm::vec2(250,250),"assets/textures/Play_button.png","assets/textures/Play_button_press.png","B2")
+    button1(glm::vec2(10,125),glm::vec2(250,250),"assets/textures/Play_button.png","assets/textures/Play_button_press.png","B1"),
+    button2(glm::vec2(10,500),glm::vec2(250,250),"assets/textures/Play_button.png","assets/textures/Play_button_press.png","B2")
 {
 }
 
@@ -23,14 +23,14 @@ void Menu::draw(Render& window)
         window.ClearObject();
         window.Clear2DObject();
 
-        manu_mode.position = glm::vec3(650,0,0);
+        manu_mode.position = glm::vec3(10,0,0);
         manu_mode.rotation = glm::vec3(0,0,0);
         manu_mode.scale = glm::vec3(300,75,1);
 
         window.AddMesh("manu mode","assets/models/rectangle.obj","assets/textures/mode_manu.png");
         window.Add2DObject("manu mode",manu_mode);
 
-        auto_mode.position = glm::vec3(675,400,0);
+        auto_mode.position = glm::vec3(10,400,0);
         auto_mode.rotation = glm::vec3(0,0,0);
         auto_mode.scale = glm::vec3(250,75,1);
 
