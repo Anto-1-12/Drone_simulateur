@@ -92,7 +92,7 @@ class Game :
                     Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
 
                     #Synchronisation Angle Drone
-                    #Transmission(json.dumps(self.drone.angles())+"\n")
+                    Transmission(json.dumps(self.drone.getangle())+"\n")
                     
 game = Game()
 game.loop()
