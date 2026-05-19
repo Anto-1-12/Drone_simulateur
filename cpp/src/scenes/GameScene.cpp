@@ -9,7 +9,7 @@ GameScene::GameScene() :
     yawn(0.0f)
 {
 
-    //Lancement du server//
+    //Lancement du server
 
     system("start assets\\python\\venv\\Scripts\\python.exe assets\\python\\main.py N");
     std::this_thread::sleep_for(std::chrono::seconds(5));
@@ -111,6 +111,22 @@ void GameScene::update(float dt,Render& window)
 
     //-----------------------------------------------
     //            update send to serv
+    //A
+    if (window.IsKeyPressed(81))
+    {
+        sendMessage(R"({"cmd":"rollgauche"})");
+        if(debug){
+            std::cout<<R"({"cmd":"rollgauche"})"<<std::endl;
+        }
+    }
+    //E
+    if (window.IsKeyPressed(69))
+    {
+        sendMessage(R"({"cmd":"rolldroite"})");
+        if(debug){
+            std::cout<<R"({"cmd":"rolldroite"})"<<std::endl;
+        }
+    }
     //87 = Z
     if (window.IsKeyPressed(87))
     {
