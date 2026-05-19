@@ -140,10 +140,10 @@ class Drone:
 
             #Roulis
             if Ordre['cmd']=="rolldroite":
-                self.changerorientationmoteur([0,0,1])
+                self.changerorientationmoteur([0,0,10])
                 print('rolldroite')
             if Ordre['cmd']=="rollgauche":
-                self.changerorientationmoteur([0,0,-1])
+                self.changerorientationmoteur([0,0,-10])
                 print('rollgauche')
 
             #gestionpuissance
