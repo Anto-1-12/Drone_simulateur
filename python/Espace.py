@@ -93,7 +93,7 @@ class Drone:
    
 
     def __init__(self):
-        Momentum=[0, #1 pour test
+        self.Momentum=[0, #1 pour test
             0,
             0]
         
