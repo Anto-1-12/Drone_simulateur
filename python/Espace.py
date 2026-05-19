@@ -123,19 +123,19 @@ class Drone:
             #Tangage
             if Ordre['cmd']=="avancer":
                 self.changerorientation([1,0,0])
+                self.changerorientationmoteur([1,0,0])
                 print('avancer')
             if Ordre['cmd']=="reculer":
                 self.changerorientation([-1,0,0])
+                self.changerorientationmoteur([-1,0,0])
                 print('reculer')
 
             #Lacet
             if Ordre['cmd']=="tourneràdroite":
                 self.changerorientation([0,1,0])
-                self.changerorientationmoteur([0,1,0])
                 print('tourneràdroite')
             if Ordre['cmd']=="tourneràgauche":
                 self.changerorientation([0,-1,0])
-                self.changerorientationmoteur([0,-1,0])
                 print('tourneràgauche')
 
             #Roulis
