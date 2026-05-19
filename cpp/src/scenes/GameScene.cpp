@@ -286,9 +286,8 @@ void GameScene::sync(bool debug)
                 }
                 else if (cmd == "sync_drone_ang")
                 {
-                    drone.rotation.x = j["x"];
-                    drone.rotation.y = j["y"];
-                    drone.rotation.z = j["z"];
+                    drone.rotation.x = glm::degrees(std::atan2(double (j["z"]), double (j["x"])));
+                    drone.rotation.y = glm::degrees(std::asin(double (j["y"])));
                     if(debug)
                     {
                         std::cout<<j<<std::endl;
