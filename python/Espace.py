@@ -222,11 +222,11 @@ class Drone:
         print("v_direction")
         print(v_direction)
 
-        force = round(self.puissance * self.pourcentmoteur / 100, 2)
+        force = round(self.puissance * self.pourcentmoteur / 10, 2)
 
         self.Momentum = [
-        v_direction[1] * force,
         v_direction[0] * force,
+        v_direction[1] * force,
         v_direction[2] * force
     ]
 
