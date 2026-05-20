@@ -158,6 +158,8 @@ class Drone:
             if Ordre['cmd']=="rolldroite":
                 if self.orientationdegrés[2]<360:
                     self.orientationdegrés[2]+=1
+                else: 
+                    self.orientationdegrés[2]=0
                 print('rolldroite')
             if Ordre['cmd']=="rollgauche":
                 if self.orientationdegrés[2]>0 :
