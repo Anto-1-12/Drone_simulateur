@@ -87,22 +87,27 @@ class Eclairage:
 class Drone:
     #gravité à mettre ici
     Gravité=[0,
-             -7.84, #-1 pour test, -7.84 N pour un drone de 800 grammes
+             -1, #-1 pour test, -7.84 N pour un drone de 800 grammes
              0]
     #Vecteur momentum :
-    Momentum=[0, #1 pour test
-            0,
-            0]
+   
 
     def __init__(self):
+        self.Momentum=[0, #1 pour test
+            0,
+            0]
+        
+        self.centregravité=[1,1,1]  # coordonnées, X droite gauche, Y hauteur, Z Profondeur*
 
-        self.centregravité=[1,1,1]  # coordonnées, X droite gauche, Y hauteur, Z Profondeur
+        self.orientationdegrés=[0,0,0]
 
-        self.orientation=[0,0,0]    #vecteur orientation, X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
+        self.orientation=[0,0,1]    #vecteur orientation, X Roulis, Y Tangage, Z Lacet https://fr.wikipedia.org/wiki/Axes_de_rotation_d%27un_a%C3%A9ronef
 
-        self.orientationmoteur=[0,90,0] #vecteur poussée,
+        self.orientationmoteur=[0,1,0] #vecteur poussée,
 
-        self.puissance=0 # max 23,5N, hover +7.84N,
+        self.puissance=2  # max 23,5N, hover +7.84N,
+
+        self.pourcentmoteur=30 
 
         self.hover=False
 
@@ -111,7 +116,7 @@ class Drone:
         #   | |
         #   | |
         # 2     3
-
+        #annulé
         self.coins=[[-10,0,10],[10,0,10],[-10,-0,10],[10,-0,10]]
         self.moteurs=[]*(4)
         for x in range(len(self.moteurs)):
@@ -122,44 +127,62 @@ class Drone:
             # angles de rotation autour des axes = (rx, ry, rz)
             #Tangage
             if Ordre['cmd']=="avancer":
-                self.changerorientation([0,1,0])
+                if self.orientationdegrés[0]<360:
+                    self.orientationdegrés[0]+=1
+                else: 
+                    self.orientationdegrés[0]=0
                 print('avancer')
             if Ordre['cmd']=="reculer":
-                self.changerorientation([0,-1,0])
+                if self.orientationdegrés[0]>0 :
+                    self.orientationdegrés[0]-=1
+                else: 
+                    self.orientationdegrés[0]=360
+                
                 print('reculer')
 
             #Lacet
             if Ordre['cmd']=="tourneràdroite":
-                self.changerorientation([0,0,1])
+                if self.orientationdegrés[1]<360:
+                    self.orientationdegrés[1]+=1
+                else: 
+                    self.orientationdegrés[1]=0
                 print('tourneràdroite')
             if Ordre['cmd']=="tourneràgauche":
-                self.changerorientation([0,0,-1])
+                if self.orientationdegrés[1]>0 :
+                    self.orientationdegrés[1]-=1
+                else: 
+                    self.orientationdegrés[1]=360
                 print('tourneràgauche')
 
             #Roulis
             if Ordre['cmd']=="rolldroite":
-                self.changerorientation([1,0,0])
+                if self.orientationdegrés[2]<360:
+                    self.orientationdegrés[2]+=1
+                else: 
+                    self.orientationdegrés[2]=0
                 print('rolldroite')
             if Ordre['cmd']=="rollgauche":
-                self.changerorientation([-1,0,0])
+                if self.orientationdegrés[2]>0 :
+                    self.orientationdegrés[2]-=1
+                else: 
+                    self.orientationdegrés[2]=360
                 print('rollgauche')
 
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
-                if self.puissance<23.5 and not self.hover:
-                    self.puissance+=2.35
+                if self.pourcentmoteur<100 and not self.hover:
+                    self.pourcentmoteur+=1
             if Ordre['cmd']=="diminuer puissance moteur":
-                if self.puissance>=2.35 and not self.hover:
-                    self.puissance-=2.35
+                if self.pourcentmoteur>0 and not self.hover:
+                    self.pourcentmoteur-=1
             if Ordre['cmd']=="hover":
                 if self.hover==False:
-                    self.memoire=self.puissance
-                    self.puissance=7.84
+                    self.memoire=self.pourcentmoteur
+                    self.pourcentmoteur=45
                     self.hover=True
                 else:
-                    self.puissance=self.memoire
+                    self.pourcentmoteur=self.memoire
                     self.hover=False
-
 
         self.cravité()
         self.momentum()
@@ -169,13 +192,45 @@ class Drone:
         self.centregravité = [centre_elt + grav_elt for grav_elt, centre_elt in zip(self.Gravité, self.centregravité)]
 
     def momentum(self):
+        self.poussée()
+        print("self.puissance")
+        print(self.puissance)
+        print(self.pourcentmoteur)
+        print("self.Momentum")
+        print(self.Momentum)
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
+        print("self.centregravité")
         print(self.centregravité)
-        print(self.orientation)
+        print("self.orientationdegrés")
+        print(self.orientationdegrés)
 
     def MinHauteur(self):
         if self.centregravité[1]<0:
             self.centregravité[1] = 0 
+
+    def poussée(self):
+
+        matricerotation = self.rotation_matrix(
+        self.orientationdegrés[0],
+        self.orientationdegrés[1],
+        self.orientationdegrés[2]
+    )
+
+        self.v_initial=np.array([0,1,0])
+        
+        v_direction = matricerotation @ self.v_initial
+        v_direction=v_direction.tolist()
+
+        print("v_direction")
+        print(v_direction)
+
+        force = round(self.puissance * self.pourcentmoteur / 100, 2)
+
+        self.Momentum = [
+        v_direction[0] * force,
+        v_direction[1] * force,
+        v_direction[2] * force
+    ]
 
     #Ci-dessous : fonction d'angles
 
@@ -211,29 +266,37 @@ class Drone:
         rz=np.radians(rz)
         return self.rotation_z(rz) @ self.rotation_y(ry) @ self.rotation_x(rx)
     
+
+    #inutile
     def changerorientation(self,angles): #
         # angles de rotation autour des axes = (rx, ry, rz)
         Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
-        print(Rotation)
-        résultat=Rotation@self.orientation
-        print("résultat")
-        print(résultat)
-        self.orientation=résultat
+        résultatdrone=Rotation@self.orientation
+        self.orientation=résultatdrone
+    #inutile
+    def changerorientationmoteur(self,angles): #
+        # angles de rotation autour des axes = (rx, ry, rz)
+        Rotation=self.rotation_matrix(angles[0],angles[1],angles[2])
+        résultatmoteur=Rotation@self.orientationmoteur
+        self.orientationmoteur=résultatmoteur
 
     #fonctions de partage des données
     def getcoordonnées(self):
         return({
         "cmd":"sync_drone_pos",
-        "x":self.centregravité[0],
-        "y":self.centregravité[1],
-        "z":self.centregravité[2]
+        "x":float(self.centregravité[0]),
+        "y":float(self.centregravité[1]),
+        "z":float(self.centregravité[2])
     })
     def getangle(self):
         return({
         "cmd":"sync_drone_ang",
-        "x":self.orientation[0],
-        "y":self.orientation[1],
-        "z":self.orientation[2]
+        "x":float(self.orientationdegrés[0]),
+        "y":float(self.orientationdegrés[1]),
+        "z":float(self.orientationdegrés[2]),
+        "x2":float(self.orientationmoteur[0]),
+        "y2":float(self.orientationmoteur[1]),
+        "z2":float(self.orientationmoteur[2]),
     })
 
 

@@ -28,6 +28,10 @@ class Game :
             if mode=='Y':
                 print('test mode automatique')
                 self.mode="Auto"
+                from programmationdrone import Palantir
+                self.Terminator=Palantir()
+                InitialisationConnection()
+
             elif mode=='N':
                 print('test mode manuel')
                 InitialisationConnection()
@@ -47,7 +51,6 @@ class Game :
         #code du mode auto
         if self.mode=='Auto':
             while self.run:
-                print("Mode auto")
                 if time.time()-self.sceau >= 1/60 :
                     #Tic de 1/60 de seconde
                     print('tic')
@@ -56,15 +59,15 @@ class Game :
                     self.sceau=time.time()
 
                     #ici commandes auto
-
+                    cmdautomatisée=self.Terminator.chatgptquidoisjeviser()
                     #Tick de mouvement drone
-                    self.drone.tickdemouvement()
+                    self.drone.tickdemouvement(cmdautomatisée)
 
                     #Synchronisation Coordonnées Drone pour visualisation
                     Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
 
                     #Synchronisation Angle Drone pour visualisation
-                    #Transmission(json.dumps(self.drone.getcoordonnées())+"\n")
+                    Transmission(json.dumps(self.drone.getangle())+"\n")
 
         #code du mode manuel
         else:
