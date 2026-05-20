@@ -105,9 +105,9 @@ class Drone:
 
         self.orientationmoteur=[0,1,0] #vecteur poussée,
 
-        self.puissance=3  # max 23,5N, hover +7.84N,
+        self.puissance=2  # max 23,5N, hover +7.84N,
 
-        self.pourcentmoteur=35 
+        self.pourcentmoteur=30 
 
         self.hover=False
 
