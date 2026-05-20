@@ -107,7 +107,7 @@ class Drone:
 
         self.puissance=6  # max 23,5N, hover +7.84N,
 
-        self.pourcentmoteur=0 
+        self.pourcentmoteur=35 
 
         self.hover=False
 
@@ -169,14 +169,14 @@ class Drone:
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
                 if self.pourcentmoteur<100 and not self.hover:
-                    self.pourcentmoteur+=5
+                    self.pourcentmoteur+=1
             if Ordre['cmd']=="diminuer puissance moteur":
                 if self.pourcentmoteur>0 and not self.hover:
-                    self.pourcentmoteur-=5
+                    self.pourcentmoteur-=1
             if Ordre['cmd']=="hover":
                 if self.hover==False:
                     self.memoire=self.pourcentmoteur
-                    self.pourcentmoteur=50
+                    self.pourcentmoteur=45
                     self.hover=True
                 else:
                     self.pourcentmoteur=self.memoire
