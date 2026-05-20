@@ -207,14 +207,28 @@ class Drone:
             self.centregravité[1] = 0 
 
     def poussée(self):
-        matricerotation=self.rotation_matrix(self.orientationdegrés[0],self.orientationdegrés[1],self.orientationdegrés[2])
+
+        matricerotation = self.rotation_matrix(
+        self.orientationdegrés[0],
+        self.orientationdegrés[1],
+        self.orientationdegrés[2]
+    )
+
         self.v_initial=np.array([0,1,0])
-        v_direction=matricerotation @ self.v_initial
+        
+        v_direction = matricerotation @ self.v_initial
         v_direction=v_direction.tolist()
+
         print("v_direction")
         print(v_direction)
-        force=round(self.puissance*self.pourcentmoteur/100,2)
-        self.Momentum=[v_direction[0]*force,v_direction[1]*force,v_direction[2]*force]
+
+        force = round(self.puissance * self.pourcentmoteur / 100, 2)
+
+        self.Momentum = [
+        v_direction[0] * force,
+        v_direction[1] * force,
+        v_direction[2] * force
+    ]
 
     #Ci-dessous : fonction d'angles
 
