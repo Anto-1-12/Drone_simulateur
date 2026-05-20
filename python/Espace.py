@@ -193,6 +193,7 @@ class Drone:
         self.poussée()
         print("self.puissance")
         print(self.puissance)
+        print(self.pourcentmoteur)
         print("self.Momentum")
         print(self.Momentum)
         self.centregravité = [centre_elt + mome_elt for mome_elt, centre_elt in zip(self.Momentum, self.centregravité)]
