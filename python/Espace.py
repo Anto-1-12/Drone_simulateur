@@ -87,7 +87,7 @@ class Eclairage:
 class Drone:
     #gravité à mettre ici
     Gravité=[0,
-             -3, #-1 pour test, -7.84 N pour un drone de 800 grammes
+             -1, #-1 pour test, -7.84 N pour un drone de 800 grammes
              0]
     #Vecteur momentum :
    
@@ -105,7 +105,7 @@ class Drone:
 
         self.orientationmoteur=[0,1,0] #vecteur poussée,
 
-        self.puissance=6  # max 23,5N, hover +7.84N,
+        self.puissance=3  # max 23,5N, hover +7.84N,
 
         self.pourcentmoteur=35 
 
