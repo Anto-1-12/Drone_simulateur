@@ -168,15 +168,15 @@ class Drone:
 
             #gestionpuissance
             if Ordre['cmd']=="augmenter puissance moteur":
-                if self.pourcentmoteur<10 and not self.hover:
-                    self.pourcentmoteur+=1
+                if self.pourcentmoteur<100 and not self.hover:
+                    self.pourcentmoteur+=5
             if Ordre['cmd']=="diminuer puissance moteur":
                 if self.pourcentmoteur>0 and not self.hover:
-                    self.pourcentmoteur-=1
+                    self.pourcentmoteur-=5
             if Ordre['cmd']=="hover":
                 if self.hover==False:
                     self.memoire=self.pourcentmoteur
-                    self.pourcentmoteur=5
+                    self.pourcentmoteur=50
                     self.hover=True
                 else:
                     self.pourcentmoteur=self.memoire
@@ -222,7 +222,7 @@ class Drone:
         print("v_direction")
         print(v_direction)
 
-        force = round(self.puissance * self.pourcentmoteur / 10, 2)
+        force = round(self.puissance * self.pourcentmoteur / 100, 2)
 
         self.Momentum = [
         v_direction[0] * force,
