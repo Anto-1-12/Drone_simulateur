@@ -225,8 +225,8 @@ class Drone:
         force = round(self.puissance * self.pourcentmoteur / 100, 2)
 
         self.Momentum = [
-        v_direction[0] * force,
         v_direction[1] * force,
+        v_direction[0] * force,
         v_direction[2] * force
     ]
 
